@@ -12,6 +12,7 @@ LazaiTrader_home/
 │   ├── tailwind.config.cjs
 │   ├── vite.config.js
 │   ├── public/
+│   │   ├── gmetis.png
 │   │   ├── lazaitrader.png
 │   │   ├── vite.svg
 │   ├── src/
@@ -24,7 +25,6 @@ LazaiTrader_home/
 │   │   │   ├── Send.svg
 │   │   │   ├── Shield.svg
 │   │   │   ├── Star.svg
-│   │   │   ├── airbnb.png
 │   │   │   ├── apple.svg
 │   │   │   ├── arrow-up.svg
 │   │   │   ├── bill.png
@@ -35,10 +35,11 @@ LazaiTrader_home/
 │   │   │   ├── cvpbadge.svg
 │   │   │   ├── dropbox.png
 │   │   │   ├── facebook.svg
-│   │   │   ├── lazaitrader.png
+│   │   │   ├── gmetis.png
 │   │   │   ├── google.svg
 │   │   │   ├── index.js
 │   │   │   ├── instagram.svg
+│   │   │   ├── lazaitrader.png
 │   │   │   ├── linkedin.svg
 │   │   │   ├── logo.svg
 │   │   │   ├── menu.svg
@@ -51,7 +52,6 @@ LazaiTrader_home/
 │   │   │   ├── twitter.svg
 │   │   ├── components/
 │   │   │   ├── Button.jsx
-│   │   │   ├── CTA.jsx
 │   │   │   ├── CampaignPopup.jsx
 │   │   │   ├── CardDeal.jsx
 │   │   │   ├── Clients.jsx
@@ -230,6 +230,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
 })
+
+// filepath: public\gmetis.png
+(BINARY FILE SKIPPED)
 
 // filepath: public\lazaitrader.png
 (BINARY FILE SKIPPED)
@@ -483,9 +486,6 @@ export default styles;
 // filepath: src\assets\Star.svg
 (BINARY FILE SKIPPED)
 
-// filepath: src\assets\airbnb.png
-(BINARY FILE SKIPPED)
-
 // filepath: src\assets\apple.svg
 (BINARY FILE SKIPPED)
 
@@ -516,7 +516,7 @@ export default styles;
 // filepath: src\assets\facebook.svg
 (BINARY FILE SKIPPED)
 
-// filepath: src\assets\lazaitrader.png
+// filepath: src\assets\gmetis.png
 (BINARY FILE SKIPPED)
 
 // filepath: src\assets\google.svg
@@ -586,6 +586,9 @@ export {
 // filepath: src\assets\instagram.svg
 (BINARY FILE SKIPPED)
 
+// filepath: src\assets\lazaitrader.png
+(BINARY FILE SKIPPED)
+
 // filepath: src\assets\linkedin.svg
 (BINARY FILE SKIPPED)
 
@@ -628,33 +631,6 @@ const Button = ({ styles, text, link }) => {
 }
 
 export default Button
-
-// filepath: src\components\CTA.jsx
-import React from 'react'
-import styles from '../style'
-import Button from './Button'
-
-const CTA = () => {
-  return (
-    <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
-      <div className='flex-1 flex flex-col'>
-        <h2 className={styles.heading2}>Ready to Transform Your Trading?</h2>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Join the future of AI-powered trading on Telegram. Experience the Strategy Vault, TEE security, and multi-agent AI optimization that makes sophisticated trading accessible to everyone.
-        </p>
-      </div>
-      <div className={`${styles.flexCenter} sm:ml-10 ml-0`}>
-        <Button 
-          styles="mt-10" 
-          text="Start Trading Now" 
-          link="https://t.me/LazaiTrader_bot" 
-        />
-      </div>
-    </section>
-  )
-}
-
-export default CTA
 
 // filepath: src\components\CampaignPopup.jsx
 import React, { useState, useEffect } from 'react';
@@ -949,7 +925,7 @@ const Footer = () => {
       
       <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t border-gray-700">
         <p className="font-normal text-center text-lg leading-7 text-white">
-          2024 LazaiTrader. All Rights Reserved.
+          2025 LazaiTrader. All Rights Reserved.
         </p>  
         <div className="flex flex-row md:mt-0 mt-6">
           {socialMedia.map((social, index) => (
@@ -1280,7 +1256,6 @@ import Features from './Features';
 import HyperHack from './HyperHack';
 import CardDeal from './CardDeal';
 import Clients from './Clients';
-import CTA from './CTA';
 import Footer from './Footer';
 import Hero from './Hero';
 import Navbar from './Navbar';
@@ -1293,7 +1268,6 @@ export {
     HyperHack,
     CardDeal,
     Clients,
-    CTA,
     Footer,
     Hero,
     Navbar,
@@ -1424,10 +1398,6 @@ export const socialMedia = [
 ];
 
 export const clients = [
-  {
-    id: "client-1",
-    logo: "airbnb",
-  },
   {
     id: "client-2", 
     logo: "binance",
