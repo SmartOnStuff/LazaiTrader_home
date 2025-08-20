@@ -1,5 +1,4 @@
 import gmetis from './lazaitrader.png' // This is your new logo
-import airbnb from "./airbnb.png";
 import bill from "./bill.png";
 import binance from "./binance.png";
 import card from "./card.png";
@@ -25,13 +24,12 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 import telegram from './telegram.svg';
-import cvpbadge from './cvpbadge.svg';
+import hyperion from './hyperion.svg';
 
 export {
-  cvpbadge,
+  hyperion,
   telegram,
   gmetis,
-  airbnb,
   bill,
   binance,
   card,

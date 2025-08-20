@@ -1,5 +1,5 @@
 import React from 'react';
-import { cvpbadge } from '../assets'; // You might want to replace this with a HyperHack badge
+import { hyperion } from '../assets'; // You might want to replace this with a HyperHack badge
 import styles, { layout } from '../style';
 
 const HyperHack = () => {
@@ -8,7 +8,7 @@ const HyperHack = () => {
       <div className={layout.sectionImgReverse}>
         <a href="https://https://hyperion.metis.io/#HyperHack-Hackathon" target="_blank" rel="noopener noreferrer">
           <img
-            src={cvpbadge}
+            src={hyperion}
             alt='HyperHack Competition Badge'
             className='w-[75%] h-[75%] relative z-[5] object-contain'
           />

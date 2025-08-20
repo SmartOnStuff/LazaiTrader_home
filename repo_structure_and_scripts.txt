@@ -32,7 +32,7 @@ LazaiTrader_home/
 │   │   │   ├── card.png
 │   │   │   ├── close.svg
 │   │   │   ├── coinbase.png
-│   │   │   ├── cvpbadge.svg
+│   │   │   ├── hyperion.svg
 │   │   │   ├── dropbox.png
 │   │   │   ├── facebook.svg
 │   │   │   ├── gmetis.png
@@ -507,7 +507,7 @@ export default styles;
 // filepath: src\assets\coinbase.png
 (BINARY FILE SKIPPED)
 
-// filepath: src\assets\cvpbadge.svg
+// filepath: src\assets\hyperion.svg
 (BINARY FILE SKIPPED)
 
 // filepath: src\assets\dropbox.png
@@ -550,10 +550,10 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 import telegram from './telegram.svg';
-import cvpbadge from './cvpbadge.svg';
+import hyperion from './hyperion.svg';
 
 export {
-  cvpbadge,
+  hyperion,
   telegram,
   gmetis,
   airbnb,
@@ -1117,7 +1117,7 @@ export default Hero;
 
 // filepath: src\components\HyperHack.jsx
 import React from 'react';
-import { cvpbadge } from '../assets'; // You might want to replace this with a HyperHack badge
+import { hyperion } from '../assets'; // You might want to replace this with a HyperHack badge
 import styles, { layout } from '../style';
 
 const HyperHack = () => {
@@ -1126,7 +1126,7 @@ const HyperHack = () => {
       <div className={layout.sectionImgReverse}>
         <a href="https://https://hyperion.metis.io/#HyperHack-Hackathon" target="_blank" rel="noopener noreferrer">
           <img
-            src={cvpbadge}
+            src={hyperion}
             alt='HyperHack Competition Badge'
             className='w-[75%] h-[75%] relative z-[5] object-contain'
           />
