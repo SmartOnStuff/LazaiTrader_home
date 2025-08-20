@@ -1,0 +1,1200 @@
+Repository Structure
+
+LazaiTrader_home/
+│   ├── LICENSE
+│   ├── README.md
+│   ├── ctp.py
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.cjs
+│   ├── tailwind.config.cjs
+│   ├── vite.config.js
+│   ├── public/
+│   │   ├── gmetis.png
+│   │   ├── vite.svg
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   ├── style.js
+│   │   ├── assets/
+│   │   │   ├── Discount.svg
+│   │   │   ├── Send.svg
+│   │   │   ├── Shield.svg
+│   │   │   ├── Star.svg
+│   │   │   ├── airbnb.png
+│   │   │   ├── apple.svg
+│   │   │   ├── arrow-up.svg
+│   │   │   ├── bill.png
+│   │   │   ├── binance.png
+│   │   │   ├── card.png
+│   │   │   ├── close.svg
+│   │   │   ├── coinbase.png
+│   │   │   ├── cvpbadge.svg
+│   │   │   ├── dropbox.png
+│   │   │   ├── facebook.svg
+│   │   │   ├── gmetis.png
+│   │   │   ├── google.svg
+│   │   │   ├── index.js
+│   │   │   ├── instagram.svg
+│   │   │   ├── linkedin.svg
+│   │   │   ├── logo.svg
+│   │   │   ├── menu.svg
+│   │   │   ├── people01.png
+│   │   │   ├── people02.png
+│   │   │   ├── people03.png
+│   │   │   ├── quotes.svg
+│   │   │   ├── robot.png
+│   │   │   ├── telegram.svg
+│   │   │   ├── twitter.svg
+│   │   ├── components/
+│   │   │   ├── Billing.jsx
+│   │   │   ├── Business.jsx
+│   │   │   ├── Button.jsx
+│   │   │   ├── CTA.jsx
+│   │   │   ├── CVP.jsx
+│   │   │   ├── CardDeal.jsx
+│   │   │   ├── Clients.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── GetStarted.jsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Stats.jsx
+│   │   │   ├── index.js
+│   │   ├── constants/
+│   │   │   ├── index.js
+
+
+File Contents
+
+// filepath: LICENSE
+MIT License
+
+Copyright (c) 2024 David Poslušný
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+// filepath: README.md
+# gMetis
+<a href="https://gmetis.io">New Website</a> </br>
+Modern responsive business website design made with React and Tailwind CSS.
+
+## Built With
+- React.js
+- Tailwind CSS
+- Vite
+
+// filepath: ctp.py
+import os
+
+EXCLUDE_DIRS = {'node_modules', 'venv', '__pycache__', '.git', 'archive', 'evm_env'}
+EXCLUDE_FILES = {'.DS_Store'}
+BINARY_EXTS = {'.png', '.jpg', '.jpeg', '.ico', '.gif', '.webp', '.svg', '.json', '.txt', '.csv'}
+
+def is_binary(filename):
+    ext = os.path.splitext(filename)[1].lower()
+    return ext in BINARY_EXTS
+
+def list_files(startpath):
+    structure = []
+    filepaths = []
+    for root, dirs, files in os.walk(startpath):
+        # Filter out excluded dirs
+        dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS and not d.startswith('.')]
+        level = root.replace(startpath, '').count(os.sep)
+        indent = '│   ' * level
+        folder = os.path.basename(root)
+        if level == 0:
+            structure.append(f"{folder}/")
+        else:
+            structure.append(f"{indent}├── {folder}/")
+        for f in sorted(files):
+            if f in EXCLUDE_FILES or f.startswith('.'):
+                continue
+            relpath = os.path.join(root, f)
+            structure.append(f"{indent}│   ├── {f}")
+            filepaths.append(relpath)
+    return structure, filepaths
+
+def main():
+    root = os.path.dirname(os.path.abspath(__file__))
+    structure, filepaths = list_files(root)
+    with open('repo_structure_and_scripts.txt', 'w', encoding='utf-8') as out:
+        out.write("Repository Structure\n\n")
+        for line in structure:
+            out.write(line + '\n')
+        out.write("\n\nFile Contents\n\n")
+        for path in filepaths:
+            rel = os.path.relpath(path, root)
+            if is_binary(path):
+                out.write(f"// filepath: {rel}\n(BINARY FILE SKIPPED)\n\n")
+                continue
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                out.write(f"// filepath: {rel}\n")
+                out.write(content)
+                if not content.endswith('\n'):
+                    out.write('\n')
+                out.write('\n')
+            except Exception as e:
+                out.write(f"// filepath: {rel}\n(COULD NOT READ FILE: {e})\n\n")
+
+if __name__ == "__main__":
+    main()
+
+// filepath: index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/gmetis.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gMetis</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+// filepath: package-lock.json
+(BINARY FILE SKIPPED)
+
+// filepath: package.json
+(BINARY FILE SKIPPED)
+
+// filepath: postcss.config.cjs
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+// filepath: tailwind.config.cjs
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./index.html", "./src/**/*.{html,js,jsx}"],
+  mode: "jit",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#00040f",
+        secondary: "#00f6ff",
+        dimWhite: "rgba(255, 255, 255, 0.7)",
+        dimBlue: "rgba(9, 151, 124, 0.1)",
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
+    },
+    screens: {
+      xs: "480px",
+      ss: "620px",
+      sm: "768px",
+      md: "1060px",
+      lg: "1200px",
+      xl: "1700px",
+    },
+  },
+  plugins: [],
+};
+
+// filepath: vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+
+// filepath: public\gmetis.png
+(BINARY FILE SKIPPED)
+
+// filepath: public\vite.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\App.jsx
+import React from 'react';
+import { 
+  Billing, 
+  Business, 
+  CTA,
+  CVP, // Add this line
+  Footer, 
+  Hero, 
+  Navbar, 
+  Stats 
+} from './components';
+import styles from './style';
+
+const App = () => {
+  return (
+    <div className='bg-primary w-full overflow-hidden'>
+      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+        <div className={`${styles.boxWidth}`}>
+          <Navbar/>
+        </div>
+      </div>
+      <div className={`bg-primary ${styles.flexStart}`}>
+        <div className={`${styles.boxWidth}`}>
+          <Hero/>      
+        </div>
+      </div>
+      <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
+        <div className={`${styles.boxWidth}`}>
+          <Stats/>
+          <CVP/> {/* Add this line */}
+          <Business/>
+          <Billing/>
+          <CTA/>
+          <Footer/>     
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+// filepath: src\index.css
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black-gradient: linear-gradient(
+    144.39deg,
+    #ffffff -278.56%,
+    #6d6d6d -78.47%,
+    #11101d 91.61%
+  );
+  --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.text-gradient {
+  background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    #def9fa 0.89%,
+    #bef3f5 17.23%,
+    #9dedf0 42.04%,
+    #7de7eb 55.12%,
+    #5ce1e6 71.54%,
+    #33bbcf 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.bg-blue-gradient {
+  background: linear-gradient(
+    157.81deg,
+    #def9fa -43.27%,
+    #bef3f5 -21.24%,
+    #9dedf0 12.19%,
+    #7de7eb 29.82%,
+    #5ce1e6 51.94%,
+    #33bbcf 90.29%
+  );
+}
+
+.bg-black-gradient {
+  background: linear-gradient(
+    144.39deg,
+    #ffffff -278.56%,
+    #6d6d6d -78.47%,
+    #11101d 91.61%
+  );
+}
+
+.bg-black-gradient-2 {
+  background: linear-gradient(
+    -168.39deg,
+    #ffffff -278.56%,
+    #6d6d6d -78.47%,
+    #11101d 91.61%
+  );
+}
+
+.bg-gray-gradient {
+  background: linear-gradient(
+    153.47deg,
+    rgba(255, 255, 255, 0) -341.94%,
+    #14101d 95.11%
+  );
+}
+
+.bg-discount-gradient {
+  background: linear-gradient(125.17deg, #272727 0%, #11101d 100%);
+}
+
+.box-shadow {
+  box-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+}
+
+.sidebar {
+  -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.feature-card:hover {
+  background: var(--black-gradient);
+  box-shadow: var(--card-shadow);
+}
+
+.feedback-container .feedback-card:last-child {
+  margin-right: 0px;
+}
+
+.feedback-card {
+  background: transparent;
+}
+
+.feedback-card:hover {
+  background: var(--black-gradient);
+}
+
+.blue__gradient {
+  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
+  filter: blur(100px);
+}
+
+.pink__gradient {
+  background: linear-gradient(90deg, #f4c4f3 0%, #fc67fa 100%);
+  filter: blur(200px);
+}
+
+.white__gradient {
+  background: rgba(255, 255, 255, 0.6);
+  filter: blur(300px);
+}
+
+.highlight-link {
+  color: #33bbcf; /* Use the blueish color from your gradient */
+  text-decoration: underline;
+}
+
+// filepath: src\main.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+// filepath: src\style.js
+const styles = {
+  boxWidth: "xl:max-w-[1280px] w-full",
+
+  heading2: "font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full",
+  paragraph: "font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px]",
+
+  flexCenter: "flex justify-center items-center",
+  flexStart: "flex justify-center items-start",
+
+  paddingX: "sm:px-16 px-6",
+  paddingY: "sm:py-16 py-6",
+  padding: "sm:px-16 px-6 sm:py-12 py-4",
+
+  marginX: "sm:mx-16 mx-6",
+  marginY: "sm:my-16 my-6",
+}
+
+export const layout = {
+  section: `flex md:flex-row flex-col ${styles.paddingY}`,
+  sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
+
+  sectionImgReverse: `flex-1 flex ${styles.flexCenter} md:mr-10 mr-0 md:mt-0 mt-10 relative`,
+  sectionImg: `flex-1 flex ${styles.flexCenter} md:ml-10 ml-0 md:mt-0 mt-10 relative`,
+
+  sectionInfo: `flex-1 ${styles.flexStart} flex-col`,
+}
+
+export default styles;
+
+// filepath: src\assets\Discount.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\Send.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\Shield.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\Star.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\airbnb.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\apple.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\arrow-up.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\bill.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\binance.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\card.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\close.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\coinbase.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\cvpbadge.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\dropbox.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\facebook.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\gmetis.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\google.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\index.js
+import gmetis from './gmetis.png' // This is your new logo
+import airbnb from "./airbnb.png";
+import bill from "./bill.png";
+import binance from "./binance.png";
+import card from "./card.png";
+import coinbase from "./coinbase.png";
+import dropbox from "./dropbox.png";
+import logo from "./logo.svg";
+import quotes from "./quotes.svg";
+import robot from "./robot.png";
+import send from "./Send.svg";
+import shield from "./Shield.svg";
+import star from "./Star.svg";
+import menu from "./menu.svg";
+import close from "./close.svg";
+import google from "./google.svg";
+import apple from "./apple.svg";
+import arrowUp from "./arrow-up.svg";
+import discount from "./Discount.svg";
+import facebook from "./facebook.svg";
+import instagram from "./instagram.svg";
+import linkedin from "./linkedin.svg";
+import twitter from "./twitter.svg";
+import people01 from "./people01.png";
+import people02 from "./people02.png";
+import people03 from "./people03.png";
+import telegram from './telegram.svg';
+import cvpbadge from './cvpbadge.svg';
+
+export {
+  cvpbadge,
+  telegram,
+  gmetis,
+  airbnb,
+  bill,
+  binance,
+  card,
+  coinbase,
+  dropbox,
+  logo,
+  quotes,
+  robot,
+  send,
+  shield,
+  star,
+  menu,
+  close,
+  google,
+  apple,
+  arrowUp,
+  discount,
+  facebook,
+  instagram,
+  linkedin,
+  twitter,
+  people01,
+  people02,
+  people03,
+};
+
+// filepath: src\assets\instagram.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\linkedin.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\logo.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\menu.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\people01.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\people02.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\people03.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\quotes.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\robot.png
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\telegram.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\assets\twitter.svg
+(BINARY FILE SKIPPED)
+
+// filepath: src\components\Billing.jsx
+import React from 'react'
+import { bill } from '../assets'
+import styles, { layout } from '../style'
+import Button from './Button'
+
+const Billing = () => {
+  return (
+    <section id='GetGMetis' className={layout.sectionReverse}>
+      <div className={layout.sectionImgReverse}>
+      <img
+        src={bill}
+        alt='billing'
+        className='w-[100%] h-[100%] relative z-[5] object-contain'
+      />
+        <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
+        <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
+      </div>
+      <div className={layout.sectionInfo}>
+        <h2 className={styles.heading2}>Unlock the Power of gMetis on Hercules DEX</h2>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          Join the revolution with gMetis, now whitelisted on the leading DEX on Metis: Hercules DEX. Secure your gMetis tokens effortlessly and become a part of a thriving community. Holding gMetis not only boosts your rewards but also positions you at the forefront of innovation. Don't miss out on this opportunity to maximize your earnings and influence within the gMetis ecosystem.
+        </p>
+        <Button 
+          styles="mt-10" 
+          text="Buy on Hercules DEX" 
+          link="https://app.hercules.exchange/?token2=0xFbe0F778e3c1168bc63d7b6F880Ec0d5F9E524E6" 
+        />
+      </div>  
+    </section>
+  )
+}
+
+export default Billing
+
+// filepath: src\components\Business.jsx
+import React from 'react'
+import { features } from '../constants'
+import styles, { layout } from '../style'
+
+const FeatureCard = ({ icon, title, content, index }) => (
+  <div className={`flex flex-row p-6 rounded-[20px] mb-6 feature-card`}>
+    <div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
+      <img
+        src={icon}
+        alt='icon'
+        className='w-[50%] h-[50%] object-contain'
+      />
+    </div>
+    <div className='flex-1 flex flex-col ml-3'>
+      <h4 className='font-poppins font-semibold text-white text-[18px] leading-[23px] mb-1'>
+        {title}
+      </h4>
+      <p className='font-poppins font-normal text-dimWhite text-[16px] leading-[24px]'>
+        {content}
+      </p>
+    </div>
+  </div>
+)
+
+const Business = () => {
+  return (
+    <section id='rewards' className={`${layout.section} ${styles.paddingX}`}>
+      <div className={layout.sectionInfo}>
+        <h2 className={styles.heading2}>
+          gMetis Reward System
+        </h2>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          The AI agent tracks user interactions and rewards active members daily. This system incentivizes participation and ensures that engaged members are recognized. Rewards are calculated based on engagement and token holdings, making the system fair and motivating.
+        </p>
+      </div>
+      <div className={`${layout.sectionImg} flex-col`}>
+        {features.map((feature, index) => (
+          <FeatureCard key={feature.id} {...feature} index={index}/>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default Business
+
+// filepath: src\components\Button.jsx
+import React from 'react'
+
+const Button = ({ styles, text, link }) => {
+  return (
+    <a href={link} className={`py-4 px-6 bg-blue-gradient font-poppins font-medium text-[18px] text-primary outline-none ${styles} rounded-[10px]`}>
+      {text}
+    </a>
+  )
+}
+
+export default Button
+
+// filepath: src\components\CTA.jsx
+import React from 'react'
+import styles from '../style'
+import Button from './Button'
+
+const CTA = () => {
+  return (
+    <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
+      <div className='flex-1 flex flex-col'>
+        <h2 className={styles.heading2}>Discover the Power of gMetis</h2>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          Learn how gMetis leverages AI to create a dynamic and rewarding community. Dive into our comprehensive documentation to understand our tokenomics, reward system, and more.
+        </p>
+      </div>
+      <div className={`${styles.flexCenter} sm:ml-10 ml-0`}>
+        <Button 
+          styles="mt-10" 
+          text="Read Documentation" 
+          link="https://docs.gmetis.io" 
+        />
+      </div>
+    </section>
+  )
+}
+
+export default CTA
+
+// filepath: src\components\CVP.jsx
+import React from 'react';
+import { cvpbadge } from '../assets'; // Ensure cvpbadge.svg is in the assets folder
+import styles, { layout } from '../style';
+
+const CVP = () => {
+  return (
+    <section id='CVP' className={layout.sectionReverse}>
+      <div className={layout.sectionImgReverse}>
+        <a href="https://snapshot.box/#/s:metislayer2.eth/proposal/0xa78367dca7840d111d1762c55bcabf18c600e7cb3783d4b766c7f821e4a9a33a" target="_blank" rel="noopener noreferrer">
+          <img
+            src={cvpbadge}
+            alt='CVP Badge'
+            className='w-[75%] h-[75%] relative z-[5] object-contain'
+          />
+        </a>
+        <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
+        <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
+      </div>
+      <div className={layout.sectionInfo}>
+        <h2 className={styles.heading2}>Community Verified Project</h2>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          Metis' <a href="https://www.metis.io/ceg" className="highlight-link">Community Ecosystem Governance</a> (CEG) allows the community to have a direct connection with projects launching in the ecosystem. Metis' commitment to decentralization led it to transfer to the community the important act of approving project partnerships by introducing <a href="https://docs.ceg.vote/community-verified-projects" className="highlight-link">Community Verified Projects</a> (CVP). CVP approval grants projects a state of validation and support from the community.
+        </p>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          gMetis was approved by the community via a CVP <a href="https://snapshot.box/#/s:metislayer2.eth/proposal/0xa78367dca7840d111d1762c55bcabf18c600e7cb3783d4b766c7f821e4a9a33a" className="highlight-link">proposal and vote</a>.
+        </p>
+      </div>  
+    </section>
+  );
+}
+
+export default CVP;
+
+// filepath: src\components\CardDeal.jsx
+import React from 'react'
+import { card } from '../assets'
+import styles, { layout } from '../style'
+import Button from './Button'
+
+const CardDeal = () => {
+  return (
+    <section className={layout.section}>
+      <div className={layout.sectionInfo}>
+        <h2 className={styles.heading2}>Unlock the Power of gMetis on Hercules DEX</h2>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          Join the revolution with gMetis, now whitelisted on the leading DEX on Metis: Hercules DEX. Secure your gMetis tokens effortlessly and become a part of a thriving community. Holding gMetis not only boosts your rewards but also positions you at the forefront of innovation. Don't miss out on this opportunity to maximize your earnings and influence within the gMetis ecosystem.
+        </p>
+        <Button 
+          styles="mt-10" 
+          text="Buy on Hercules DEX" 
+          link="https://app.hercules.exchange/?outputCurrency=0xFbe0F778e3c1168bc63d7b6F880Ec0d5F9E524E6" 
+        />
+      </div>
+      <div className={layout.sectionImg}>
+        <img
+          src={card}
+          alt='card'
+          className='w-[100%] h-[100%]'
+        />
+      </div>
+    </section>
+  )
+}
+
+export default CardDeal
+
+// filepath: src\components\Clients.jsx
+import React from 'react'
+import { clients } from '../constants'
+import styles from '../style'
+
+const Clients = () => {
+  return (
+    <section className={`${styles.flexCenter} my-4`}>
+      <div className={`${styles.flexCenter} flex-wrap w-full`}>
+        {clients.map((client) => (
+          <div key={client.id} className={`flex-1 ${styles.flexCenter} sm:min-w-[192px] min-w-[120px]`}>
+            <img
+              src={client.logo}
+              alt='client'
+              className='sm:w-[192px] w-[100px] object-contain'
+            />           
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default Clients
+
+// filepath: src\components\Footer.jsx
+import React from 'react'
+import styles from '../style'
+import { gmetis } from '../assets' // Ensure correct import path and filename
+import { footerLinks, socialMedia } from '../constants'
+
+const Footer = () => {
+  return (
+    <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
+      <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
+        <div className='flex-1 flex flex-col justify-start mr-10'>
+          <img
+            src={gmetis}
+            alt='gMetis logo'
+            className='w-[172px] h-[172px] object-contain'
+          />
+          <p className={`${styles.paragraph} mt-4 max-w-[310px]`}>
+            AI Agent - Meme Token with a Touch of Utility
+          </p>
+        </div>
+        <div className='flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10'>
+          {footerLinks.map((link) => (
+            <div key={link.title} className='flex flex-col ss:my-0 my-4 min-w-[150px]'>
+              <h4 className='font-poppins font-medium text-[18px] leading-[27px] text-white'>
+                {link.title}
+              </h4>
+              <ul className='list-none mt-4'>
+                {link.links.map((item, index) => (
+                  <li 
+                    key={item.name} 
+                    className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${index !== link.links.length - 1 ? 'mb-4' : 'mb-0'}`}
+                  >
+                    <a href={item.link}>{item.name}</a> {/* Wrapping the name with <a> tag */}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className='w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]'>
+        <p className='font-poppins font-normal text-center text-[18px] leading-[27px] text-white'>
+          2024 gMetis. All Rights Reserved.
+        </p>  
+        <div className='flex flex-row md:mt-0 mt-6'>
+          {socialMedia.map((social, index) => (
+            <a key={social.id} href={social.link}> {/* Adding <a> tag around the social media icon */}
+              <img
+                src={social.icon}
+                alt={social.id}
+                className={`w-[21px] h-[21px] object-contain cursor-pointer ${index !== socialMedia.length - 1 ? 'mr-6' : 'mr-0'}`}
+              />
+            </a>
+          ))}
+        </div>    
+      </div>
+    </section>
+  )
+}
+
+export default Footer
+
+// filepath: src\components\GetStarted.jsx
+import React from 'react'
+import styles from '../style'
+import { arrowUp } from '../assets'
+
+const GetStarted = () => {
+  return (
+    <div className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer`}>
+      <div className={`${styles.flexCenter} flex-col bg-primary w-[100%] h-[100%] rounded-full`}>
+        <div className={`${styles.flexStart} flex-row`}>
+          <p className='font-poppins font-medium text-[18px] leading-[23px] mr-2'>
+            <span className='text-gradient'>Get</span>
+          </p>
+          <img
+            src={arrowUp}
+            alt='arrow'
+            className='w-[23px] h-[23px] object-contain'
+          />
+        </div>
+        <p className='font-poppins font-medium text-[18px] leading-[23px]'>
+          <span className='text-gradient'>Started</span>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default GetStarted
+
+// filepath: src\components\Hero.jsx
+import styles from '../style'
+import { robot } from '../assets'
+
+const Hero = () => {
+  return (
+    <section id='home' className={`flex md:flex-row flex-col ${styles.paddingY}`}>
+      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
+        <div className='flex flex-row justify-between items-center w-full'>
+          <h1 className='flex-1 font-poppins font-semibold ss:text-[72px] text-[42px] text-white ss:leading-[100.8px] leading-[60px]'>
+            gMetis <br className='sm:block hidden'/> {" "}
+            <span className='text-gradient'>Revolutionizing</span> {" "}
+          </h1>
+        </div>
+        <h1 className='font-poppins font-semibold ss:text-[68px] text-[42px] text-white ss:leading-[100px] leading-[60px] w-full'>
+          Community Engagement with AI.
+        </h1>
+        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+          gMetis is an innovative project that merges the fun of meme tokens with the practical benefits of AI-driven community management. Built on the Metis Layer 2 of Ethereum, gMetis aims to create a lively and interactive community where members are rewarded for their participation and engagement.
+        </p>
+      </div>
+      <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
+        <img
+          src={robot}
+          alt='billing'
+          className='w-[100%] h-[100%] relative z-[5]'
+        />
+        <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
+        <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40" />
+        <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient"/>
+      </div>
+    </section>
+  )
+}
+
+export default Hero
+
+// filepath: src\components\Navbar.jsx
+import React, { useState } from 'react'
+import { close, gmetis, menu } from '../assets'
+import { navLinks } from '../constants'
+
+const Navbar = () => {
+  const [toggle, setToggle] = useState(false)
+
+  return (
+    <nav className='w-full flex py-6 justify-between items-center navbar'>
+      <img src={gmetis} alt='gMetis' className='w-[48px] h-[48px] object-contain'/>
+      <ul className='list-none sm:flex hidden justify-end items-center flex-1'>
+        {navLinks.map((nav, i) => (
+          <li 
+            key={nav.id}
+            className={`font-poppins font-normal cursor-pointer text-[16px] ${i === navLinks.length - 1 ? 'mr-0' : 'mr-10'} text-white mr-10`}
+          >
+            <a href={nav.id === "documentation" ? "https://docs.gmetis.io/" : `#${nav.id}`}>
+              {nav.title}
+            </a>
+          </li>        
+        ))}
+      </ul>
+      <div className='sm:hidden flex flex-1 justify-end items-center'>
+        <img
+          src={toggle ? close : menu}
+          alt='menu'
+          className='w-[28px] h-[28px] object-contain'
+          onClick={() => setToggle((previous) => !previous)}
+        />
+        <div className={`${toggle ? 'flex' : 'hidden'} p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}>
+          <ul className='list-none flex flex-col justify-end items-center flex-1'>
+            {navLinks.map((nav, i) => (
+              <li 
+                key={nav.id}
+                className={`font-poppins font-normal cursor-pointer text-[16px] ${i === navLinks.length - 1 ? 'mr-0' : 'mb-4'} text-white mr-10`}
+              >
+                <a href={nav.id === "documentation" ? "https://docs.gmetis.io/" : `#${nav.id}`}>
+                  {nav.title}
+                </a>
+              </li>        
+            ))}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+export default Navbar
+
+// filepath: src\components\Stats.jsx
+import React from 'react'
+import { stats } from '../constants'
+import styles from '../style'
+
+const Stats = () => {
+  return (
+    <section className={`${styles.flexCenter} flex-row flex-wrap sm:mb-20 mb-6`}>
+      {stats.map((stat) => (
+        <div key={stat.id} className={`flex-1 flex justify-start items-center flex-row m-3`}>
+          <h4 className='font-poppins font-semibold xs:text-[40px] text-[30px] xs:leading-[53px] leading-[43px] text-white'>{stat.value}</h4>
+          <p className='font-poppins font-normal xs:text-[20px] text-[15px] xs:leading-[26px] leading-[21px] text-gradient uppercase ml-3'>{stat.title}</p>
+        </div>
+      ))}
+    </section>
+  )
+}
+
+export default Stats
+
+// filepath: src\components\index.js
+import Billing from './Billing'
+import Business from './Business'
+import CVP from './CVP'
+import CardDeal from './CardDeal'
+import Clients from './Clients'
+import CTA from './CTA'
+import Footer from './Footer'
+import Hero from './Hero'
+import Navbar from './Navbar'
+import Stats from './Stats'
+
+
+
+export {
+    Billing,
+    Business,
+    CVP,
+    CardDeal,
+    Clients,
+    CTA,
+    Footer,
+    Hero,
+    Navbar,
+    Stats
+}
+
+// filepath: src\constants\index.js
+import { 
+  people01, 
+  people02, 
+  people03, 
+  facebook, 
+  instagram, 
+  telegram, 
+  twitter, 
+  airbnb, 
+  binance, 
+  coinbase, 
+  dropbox, 
+  send, 
+  shield, 
+  star
+} from "../assets";
+
+export const navLinks = [
+  {
+    id: "home",
+    title: "Home",
+  },
+  {
+    id: "rewards",
+    title: "Rewards",
+  },
+  {
+    id: "GetGMetis",
+    title: "Get gMetis",
+  },
+  {
+    id: "documentation",
+    title: "Documentation",
+  },
+];
+
+export const features = [
+  {
+    id: "feature-1",
+    icon: star,
+    title: "Rewards",
+    content:
+      "Daily rewards incentivize active participation.",
+  },
+  {
+    id: "feature-2",
+    icon: shield,
+    title: "100% Secured",
+    content:
+      "Transparent, secure token launched via Metis Forge with permanent liquidity lock on Hercules DEX",
+  },
+  {
+    id: "feature-3",
+    icon: send,
+    title: "Engagement",
+    content:
+      "AI agents foster dynamic conversations & positive engagement.",
+  },
+];
+
+export const stats = [
+  {
+    id: "stats-1",
+    title: "AI_Agent",
+    value: "",
+  },
+  {
+    id: "stats-2",
+    title: "MEME Token",
+    value: "",
+  },
+  {
+    id: "stats-3",
+    title: "with Utility",
+    value: "",
+  },
+];
+
+export const footerLinks = [
+  {
+    title: "Useful Links",
+    links: [
+      {
+        name: "Docs",
+        link: "https://docs.gmetis.io/",
+      },
+      {
+        name: "Enagage and Earn",
+        link: "https://t.me/gmetisio/",
+      },
+      {
+        name: "CVP Proposal",
+        link: "https://snapshot.box/#/s:metislayer2.eth/proposal/0xa78367dca7840d111d1762c55bcabf18c600e7cb3783d4b766c7f821e4a9a33a",
+      },
+      {
+        name: "Buy gMetis",
+        link: "https://app.hercules.exchange/?token2=0xFbe0F778e3c1168bc63d7b6F880Ec0d5F9E524E6",
+      },
+      {
+        name: "Bridge to Metis",
+        link: "https://metis.io/bridge",
+      },
+    ],
+  },
+  {
+    title: "",
+    links: [
+      {
+        name: "Become a Partner",
+        link: "mailto:contact@gmetis.io",
+      },
+    ],
+  },
+];
+
+export const socialMedia = [
+  {
+    id: "social-media-3",
+    icon: twitter,
+    link: "https://x.com/gmetisl2",
+  },
+  {
+    id: "social-media-4",
+    icon: telegram,
+    link: "https://t.me/gmetisio",
+  },
+];
+
+export const clients = [
+  {
+    id: "client-1",
+    logo: airbnb,
+  },
+  {
+    id: "client-2",
+    logo: binance,
+  },
+  {
+    id: "client-3",
+    logo: coinbase,
+  },
+  {
+    id: "client-4",
+    logo: dropbox,
+  },
+];
+
