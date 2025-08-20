@@ -3,10 +3,16 @@ import React from 'react';
 const Hero = () => {
   const handleLearnMore = (e) => {
     e.preventDefault();
-    document.getElementById('features').scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // Optional: fallback for mobile browsers that may not scroll correctly
+      window.location.hash = '#features';
+    }
   };
 
   return (
