@@ -100,7 +100,8 @@ export const footerLinks = [
     links: [
       { name: "HyperHack", link: "https://hyperion.metis.io/#HyperHack-Hackathon" },
       { name: "Hyperion Network", link: "https://hyperion.metis.io/" },
-      { name: "Metis", link: "https://metis.io" }
+      { name: "Metis", link: "https://metis.io" },
+      { name: "LAzAI Network", link: "https://lazai.network" }
     ],
   },
 ];

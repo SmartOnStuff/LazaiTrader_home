@@ -48,7 +48,7 @@ const Features = () => {
           Why Choose LazaiTrader
         </h2>
         <p className="font-normal text-gray-300 text-lg leading-8 max-w-2xl mx-auto">
-          Revolutionary AI-powered trading platform combining security, analytics, and simplicity in one Telegram interface.
+          Built on the same robust Alith framework infrastructure and a privacy-preserving Trusted Execution Environment (TEE), LazaiTrader adapts to market conditions while maintaining the user’s selected trading philosophy, effectively bringing institutional-grade trading strategies to retail users through a familiar messaging interface.
         </p>
       </div>
 
