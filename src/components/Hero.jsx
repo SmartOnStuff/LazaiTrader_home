@@ -27,7 +27,7 @@ const Hero = () => {
           Revolutionary platform combining AI trading strategies, TEE-secured analytics, and professional trading tools, all accessible through simple Telegram conversations.
         </p>
         
-        {/* Key highlights */}
+        {/* Key highlights
         <div className="flex flex-wrap gap-6 mt-6 mb-8">
           <div className="flex items-center">
             <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
@@ -41,7 +41,7 @@ const Hero = () => {
             <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
             <span className="text-gray-300 font-normal text-sm">TEE Security</span>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col sm:flex-row gap-4">
           <a 
