@@ -60,6 +60,7 @@ LazaiTrader_home/
 │   │   │   ├── Hero.jsx
 │   │   │   ├── HyperHack.jsx
 │   │   │   ├── Navbar.jsx
+│   │   │   ├── ProductFeatures.jsx
 │   │   │   ├── Stats.jsx
 │   │   │   ├── index.js
 │   │   ├── constants/
@@ -248,6 +249,7 @@ import {
   Navbar, 
   Stats 
 } from './components';
+import ProductFeatures from './components/ProductFeatures';
 import styles from './style';
 
 const App = () => {
@@ -266,8 +268,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
+          <Features/> {/* Overview features */}
+          <ProductFeatures/> {/* Detailed product features */}
           <HyperHack/> {/* Renamed from CVP */}
-          <Features/> {/* Renamed from Business */}
           <GetStarted/> {/* Renamed from Billing */}
           <CTA/>
           <Footer/>     
@@ -713,50 +716,134 @@ export default Clients
 
 // filepath: src\components\Features.jsx
 import React from 'react'
-import { features } from '../constants'
+import { shield, star, send } from '../assets'
 import styles, { layout } from '../style'
 
-const FeatureCard = ({ icon, title, content, index }) => (
-  <div className={`flex flex-row p-6 rounded-[20px] mb-6 feature-card`}>
-    <div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-      <img
-        src={icon}
-        alt='icon'
-        className='w-[50%] h-[50%] object-contain'
-      />
-    </div>
-    <div className='flex-1 flex flex-col ml-3'>
-      <h4 className='font-poppins font-semibold text-white text-[18px] leading-[23px] mb-1'>
-        {title}
-      </h4>
-      <p className='font-poppins font-normal text-dimWhite text-[16px] leading-[24px]'>
-        {content}
-      </p>
-    </div>
-  </div>
-)
-
-const Features = () => {
-  return (
-    <section id='features' className={`${layout.section} ${styles.paddingX}`}>
-      <div className={layout.sectionInfo}>
-        <h2 className={styles.heading2}>
-          Revolutionary Trading Features
-        </h2>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          LazaiTrader combines cutting-edge AI technology with user-friendly Telegram integration. Our platform offers secure, private, and intelligent trading solutions that adapt to your needs and market conditions.
-        </p>
+const ProductFeature = ({ icon, title, description, features, reversed = false }) => (
+  <section className={reversed ? layout.sectionReverse : layout.section}>
+    <div className={reversed ? layout.sectionImgReverse : layout.sectionImg}>
+      <div className={`w-[100px] h-[100px] rounded-full ${styles.flexCenter} bg-blue-gradient`}>
+        <img
+          src={icon}
+          alt={title}
+          className='w-[60%] h-[60%] object-contain'
+        />
       </div>
-      <div className={`${layout.sectionImg} flex-col`}>
+      <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
+      <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
+    </div>
+    <div className={layout.sectionInfo}>
+      <h2 className={styles.heading2}>{title}</h2>
+      <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-6`}>
+        {description}
+      </p>
+      <div className="space-y-4">
         {features.map((feature, index) => (
-          <FeatureCard key={feature.id} {...feature} index={index}/>
+          <div key={index} className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h4 className="font-poppins font-semibold text-white text-[16px] mb-1">
+                {feature.title}
+              </h4>
+              <p className="font-poppins font-normal text-dimWhite text-[14px] leading-[20px]">
+                {feature.description}
+              </p>
+            </div>
+          </div>
         ))}
       </div>
-    </section>
+    </div>  
+  </section>
+)
+
+const ProductFeatures = () => {
+  const strategyVaultFeatures = [
+    {
+      title: "Secure Data Contribution",
+      description: "Your trading data is signed with your wallet and stored in a TEE (Trusted Execution Environment) - completely private and secure."
+    },
+    {
+      title: "Anonymous Analytics",
+      description: "All data is anonymized before analysis. No individual information is ever revealed, only collective insights."
+    },
+    {
+      title: "AI-Powered Recommendations", 
+      description: "Get personalized strategy suggestions based on anonymous performance data from the entire community."
+    },
+    {
+      title: "Collective Intelligence",
+      description: "Your contributions help improve suggestions for everyone while maintaining complete privacy protection."
+    }
+  ]
+
+  const tradingChartsFeatures = [
+    {
+      title: "Real-Time PnL Tracking",
+      description: "Monitor your profit and loss in real-time with detailed performance metrics updated after every trade."
+    },
+    {
+      title: "Visual Strategy Analysis",
+      description: "Analyze your trading patterns with comprehensive charts showing entry/exit points, success rates, and optimization opportunities."
+    },
+    {
+      title: "Telegram Integration",
+      description: "Access all your trading charts directly within Telegram - no need for external platforms or complex interfaces."
+    },
+    {
+      title: "Performance Optimization",
+      description: "Identify what's working and what isn't with detailed analytics to continuously improve your trading strategy."
+    }
+  ]
+
+  const conversationalTradingFeatures = [
+    {
+      title: "Natural Language Commands",
+      description: "Simply tell the bot what you want to trade using everyday language - no complex syntax or technical commands required."
+    },
+    {
+      title: "Multi-Agent AI System",
+      description: "Multiple AI agents work together to understand your intent, analyze markets, and execute optimal trading strategies."
+    },
+    {
+      title: "Zero Setup Required", 
+      description: "No wallet downloads, browser extensions, or complex configurations. Start trading in seconds with just Telegram."
+    },
+    {
+      title: "Intelligent Automation",
+      description: "AI handles market monitoring, strategy execution, and risk management while you focus on high-level decisions."
+    }
+  ]
+
+  return (
+    <>
+      <ProductFeature
+        icon={star}
+        title="Strategy Vault: Collective Trading Intelligence"
+        description="The world's first TEE-secured strategy sharing system. Contribute your trading data anonymously to help build collective intelligence while receiving AI-powered recommendations tailored to your trading style."
+        features={strategyVaultFeatures}
+        reversed={false}
+      />
+      
+      <ProductFeature
+        icon={shield}
+        title="Advanced Trading Charts & Analytics" 
+        description="Professional-grade trading analytics delivered directly to your Telegram. Track performance, analyze patterns, and optimize strategies with comprehensive charts and real-time PnL tracking."
+        features={tradingChartsFeatures}
+        reversed={true}
+      />
+      
+      <ProductFeature
+        icon={send}
+        title="Conversational AI Trading Platform"
+        description="Experience the future of trading with natural language processing and multi-agent AI. No complex interfaces - just intelligent conversations that execute sophisticated trading strategies."
+        features={conversationalTradingFeatures}
+        reversed={false}
+      />
+    </>
   )
 }
 
-export default Features
+export default ProductFeatures
 
 // filepath: src\components\Footer.jsx
 import React from 'react'
@@ -873,6 +960,7 @@ export default GetStarted
 // filepath: src\components\Hero.jsx
 import styles from '../style'
 import { robot } from '../assets'
+import Button from './Button'
 
 const Hero = () => {
   return (
@@ -888,9 +976,40 @@ const Hero = () => {
           Trading on Telegram.
         </h1>
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          LazaiTrader is a multi-agent AI trading platform that operates directly through Telegram. Experience sophisticated trading made accessible with conversational AI, secure TEE technology, and no need for wallets or browsers.
+          Experience the future of trading with LazaiTrader - a revolutionary platform combining conversational AI, TEE-secured Strategy Vault, and professional trading analytics, all accessible through Telegram.
         </p>
+        
+        {/* Key highlights */}
+        <div className="flex flex-wrap gap-6 mt-6 mb-8">
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">110+ Active Users</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">10K+ Transactions</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">TEE Security</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button 
+            styles="" 
+            text="Start Trading Now" 
+            link="https://t.me/LazaiTrader_bot" 
+          />
+          <a 
+            href="#features" 
+            className="py-4 px-6 font-poppins font-medium text-[18px] text-secondary border border-secondary rounded-[10px] hover:bg-secondary hover:text-primary transition-all duration-300 text-center"
+          >
+            Learn More
+          </a>
+        </div>
       </div>
+      
       <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
         <img
           src={robot}
@@ -998,6 +1117,137 @@ const Navbar = () => {
 
 export default Navbar
 
+// filepath: src\components\ProductFeatures.jsx
+import React from 'react'
+import { shield, star, send } from '../assets'
+import styles, { layout } from '../style'
+
+const ProductFeature = ({ icon, title, description, features, reversed = false }) => (
+  <section className={reversed ? layout.sectionReverse : layout.section}>
+    <div className={reversed ? layout.sectionImgReverse : layout.sectionImg}>
+      <div className={`w-[100px] h-[100px] rounded-full ${styles.flexCenter} bg-blue-gradient`}>
+        <img
+          src={icon}
+          alt={title}
+          className='w-[60%] h-[60%] object-contain'
+        />
+      </div>
+      <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
+      <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
+    </div>
+    <div className={layout.sectionInfo}>
+      <h2 className={styles.heading2}>{title}</h2>
+      <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-6`}>
+        {description}
+      </p>
+      <div className="space-y-4">
+        {features.map((feature, index) => (
+          <div key={index} className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h4 className="font-poppins font-semibold text-white text-[16px] mb-1">
+                {feature.title}
+              </h4>
+              <p className="font-poppins font-normal text-dimWhite text-[14px] leading-[20px]">
+                {feature.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>  
+  </section>
+)
+
+const ProductFeatures = () => {
+  const strategyVaultFeatures = [
+    {
+      title: "Secure Data Contribution",
+      description: "Your trading data is signed with your wallet and stored in a TEE (Trusted Execution Environment) - completely private and secure."
+    },
+    {
+      title: "Anonymous Analytics",
+      description: "All data is anonymized before analysis. No individual information is ever revealed, only collective insights."
+    },
+    {
+      title: "AI-Powered Recommendations", 
+      description: "Get personalized strategy suggestions based on anonymous performance data from the entire community."
+    },
+    {
+      title: "Collective Intelligence",
+      description: "Your contributions help improve suggestions for everyone while maintaining complete privacy protection."
+    }
+  ]
+
+  const tradingChartsFeatures = [
+    {
+      title: "Real-Time PnL Tracking",
+      description: "Monitor your profit and loss in real-time with detailed performance metrics updated after every trade."
+    },
+    {
+      title: "Visual Strategy Analysis",
+      description: "Analyze your trading patterns with comprehensive charts showing entry/exit points, success rates, and optimization opportunities."
+    },
+    {
+      title: "Telegram Integration",
+      description: "Access all your trading charts directly within Telegram - no need for external platforms or complex interfaces."
+    },
+    {
+      title: "Performance Optimization",
+      description: "Identify what's working and what isn't with detailed analytics to continuously improve your trading strategy."
+    }
+  ]
+
+  const conversationalTradingFeatures = [
+    {
+      title: "Natural Language Commands",
+      description: "Simply tell the bot what you want to trade using everyday language - no complex syntax or technical commands required."
+    },
+    {
+      title: "Multi-Agent AI System",
+      description: "Multiple AI agents work together to understand your intent, analyze markets, and execute optimal trading strategies."
+    },
+    {
+      title: "Zero Setup Required", 
+      description: "No wallet downloads, browser extensions, or complex configurations. Start trading in seconds with just Telegram."
+    },
+    {
+      title: "Intelligent Automation",
+      description: "AI handles market monitoring, strategy execution, and risk management while you focus on high-level decisions."
+    }
+  ]
+
+  return (
+    <>
+      <ProductFeature
+        icon={star}
+        title="Strategy Vault: Collective Trading Intelligence"
+        description="The world's first TEE-secured strategy sharing system. Contribute your trading data anonymously to help build collective intelligence while receiving AI-powered recommendations tailored to your trading style."
+        features={strategyVaultFeatures}
+        reversed={false}
+      />
+      
+      <ProductFeature
+        icon={shield}
+        title="Advanced Trading Charts & Analytics" 
+        description="Professional-grade trading analytics delivered directly to your Telegram. Track performance, analyze patterns, and optimize strategies with comprehensive charts and real-time PnL tracking."
+        features={tradingChartsFeatures}
+        reversed={true}
+      />
+      
+      <ProductFeature
+        icon={send}
+        title="Conversational AI Trading Platform"
+        description="Experience the future of trading with natural language processing and multi-agent AI. No complex interfaces - just intelligent conversations that execute sophisticated trading strategies."
+        features={conversationalTradingFeatures}
+        reversed={false}
+      />
+    </>
+  )
+}
+
+export default ProductFeatures
+
 // filepath: src\components\Stats.jsx
 import React from 'react'
 import { stats } from '../constants'
@@ -1029,6 +1279,7 @@ import Footer from './Footer'
 import Hero from './Hero'
 import Navbar from './Navbar'
 import Stats from './Stats'
+import ProductFeatures from './ProductFeatures'
 
 export {
     GetStarted, // Renamed from Billing
@@ -1040,31 +1291,199 @@ export {
     Footer,
     Hero,
     Navbar,
-    Stats
+    Stats,
+    ProductFeatures
 }
 
 // filepath: src\constants\index.js
-import GetStarted from './GetStarted' // Renamed from Billing
-import Features from './Features' // Renamed from Business  
-import HyperHack from './HyperHack' // Renamed from CVP
-import CardDeal from './CardDeal'
-import Clients from './Clients'
-import CTA from './CTA'
-import Footer from './Footer'
-import Hero from './Hero'
-import Navbar from './Navbar'
-import Stats from './Stats'
+import { people01, people02, people03, twitter, telegram, airbnb, binance, coinbase, dropbox, send, shield, star } from "../assets";
 
-export {
-    GetStarted, // Renamed from Billing
-    Features, // Renamed from Business
-    HyperHack, // Renamed from CVP
-    CardDeal,
-    Clients,
-    CTA,
-    Footer,
-    Hero,
-    Navbar,
-    Stats
-}
+export const navLinks = [
+  {
+    id: "home",
+    title: "Home",
+  },
+  {
+    id: "features", 
+    title: "Features",
+  },
+  {
+    id: "hyperhack",
+    title: "Competition",
+  },
+  {
+    id: "GetStarted",
+    title: "Get Started",
+  },
+];
+
+export const features = [
+  {
+    id: "feature-1",
+    icon: star,
+    title: "Strategy Vault",
+    content:
+      "Revolutionary TEE-secured knowledge sharing system where users contribute trading data anonymously to a collective intelligence that provides AI-powered strategy recommendations.",
+  },
+  {
+    id: "feature-2", 
+    icon: shield,
+    title: "Trading Charts & Analytics",
+    content:
+      "View your private trading charts directly in Telegram with real-time PnL tracking, performance analytics, and visual strategy optimization tools.",
+  },
+  {
+    id: "feature-3",
+    icon: send,
+    title: "Conversational Trading",
+    content:
+      "Trade directly through Telegram with natural language commands. No browser, no wallet management - just conversation-driven trading with multi-agent AI assistance.",
+  },
+  {
+    id: "feature-4",
+    icon: star,
+    title: "AI Support Agent",
+    content:
+      "Get instant help with our Alith-powered support agent using RAG technology. Available 24/7 to assist with trading questions, commands, and troubleshooting.",
+  },
+];
+
+export const feedback = [
+  {
+    id: "feedback-1",
+    content:
+      "The Strategy Vault is game-changing! Getting AI recommendations based on anonymous community data has improved my trading performance significantly.",
+    name: "Alex Chen",
+    title: "Active Trader", 
+    img: people01,
+  },
+  {
+    id: "feedback-2",
+    content:
+      "I love the trading charts in Telegram. Seeing my PnL and performance analytics without leaving the chat makes strategy optimization so much easier.",
+    name: "Maria Rodriguez",
+    title: "DeFi Enthusiast",
+    img: people02,
+  },
+  {
+    id: "feedback-3",
+    content:
+      "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the TEE security gives me complete peace of mind.",
+    name: "James Thompson",
+    title: "Crypto Investor",
+    img: people03,
+  },
+];
+
+export const stats = [
+  {
+    id: "stats-1",
+    title: "Active Users",
+    value: "110+",
+  },
+  {
+    id: "stats-2", 
+    title: "Trading Pairs",
+    value: "2",
+  },
+  {
+    id: "stats-3",
+    title: "Transactions",
+    value: "10K+",
+  },
+];
+
+export const footerLinks = [
+  {
+    title: "Useful Links",
+    links: [
+      {
+        name: "Features",
+        link: "#features",
+      },
+      {
+        name: "Competition", 
+        link: "#hyperhack",
+      },
+      {
+        name: "Get Started",
+        link: "#GetStarted",
+      },
+      {
+        name: "Telegram Bot",
+        link: "https://t.me/LazaiTrader_bot",
+      },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      {
+        name: "AI Support Agent",
+        link: "https://t.me/LazaiTrader_alithbot",
+      },
+      {
+        name: "Trading Help", 
+        link: "https://t.me/LazaiTrader_alithbot",
+      },
+      {
+        name: "Commands Guide",
+        link: "https://t.me/LazaiTrader_alithbot",
+      },
+      {
+        name: "Troubleshooting",
+        link: "https://t.me/LazaiTrader_alithbot",
+      },
+    ],
+  },
+  {
+    title: "Partner",
+    links: [
+      {
+        name: "HyperHack",
+        link: "https://hyperhack.io",
+      },
+      {
+        name: "Hyperion Network",
+        link: "https://hyperion.io", 
+      },
+      {
+        name: "Metis",
+        link: "https://metis.io",
+      },
+    ],
+  },
+];
+
+export const socialMedia = [
+  {
+    id: "social-media-1",
+    icon: twitter,
+    link: "https://www.twitter.com/",
+  },
+  {
+    id: "social-media-2",
+    icon: telegram,
+    link: "https://t.me/LazaiTrader_bot",
+  },
+];
+
+export const clients = [
+  {
+    id: "client-1",
+    logo: airbnb,
+  },
+  {
+    id: "client-2", 
+    logo: binance,
+  },
+  {
+    id: "client-3",
+    logo: coinbase,
+  },
+  {
+    id: "client-4",
+    logo: dropbox,
+  },
+];
 
