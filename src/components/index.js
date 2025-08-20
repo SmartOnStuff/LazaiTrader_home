@@ -3,7 +3,6 @@ import Features from './Features';
 import HyperHack from './HyperHack';
 import CardDeal from './CardDeal';
 import Clients from './Clients';
-import CTA from './CTA';
 import Footer from './Footer';
 import Hero from './Hero';
 import Navbar from './Navbar';
@@ -16,7 +15,6 @@ export {
     HyperHack,
     CardDeal,
     Clients,
-    CTA,
     Footer,
     Hero,
     Navbar,
