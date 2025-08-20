@@ -52,6 +52,7 @@ LazaiTrader_home/
 │   │   ├── components/
 │   │   │   ├── Button.jsx
 │   │   │   ├── CTA.jsx
+│   │   │   ├── CampaignPopup.jsx
 │   │   │   ├── CardDeal.jsx
 │   │   │   ├── Clients.jsx
 │   │   │   ├── Features.jsx
@@ -60,7 +61,6 @@ LazaiTrader_home/
 │   │   │   ├── Hero.jsx
 │   │   │   ├── HyperHack.jsx
 │   │   │   ├── Navbar.jsx
-│   │   │   ├── ProductFeatures.jsx
 │   │   │   ├── Stats.jsx
 │   │   │   ├── index.js
 │   │   ├── constants/
@@ -243,18 +243,19 @@ import {
   GetStarted, 
   Features, 
   CTA,
-  HyperHack, // Renamed from CVP
+  HyperHack,
   Footer, 
   Hero, 
   Navbar, 
   Stats 
 } from './components';
-import ProductFeatures from './components/ProductFeatures';
+import CampaignPopup from './components/CampaignPopup';
 import styles from './style';
 
 const App = () => {
   return (
     <div className='bg-primary w-full overflow-hidden'>
+      <CampaignPopup />
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
           <Navbar/>
@@ -268,10 +269,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
-          <Features/> {/* Overview features */}
-          <ProductFeatures/> {/* Detailed product features */}
-          <HyperHack/> {/* Renamed from CVP */}
-          <GetStarted/> {/* Renamed from Billing */}
+          <Features/> {/* Single, cleaned up features section */}
+          <HyperHack/>
+          <GetStarted/>
           <CTA/>
           <Footer/>     
         </div>
@@ -656,6 +656,63 @@ const CTA = () => {
 
 export default CTA
 
+// filepath: src\components\CampaignPopup.jsx
+import React, { useState, useEffect } from 'react';
+
+const CampaignPopup = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Show popup when component mounts
+    setIsVisible(true);
+  }, []);
+
+  const closeModal = () => {
+    setIsVisible(false);
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}>
+      <div className="bg-gray-800 rounded-2xl p-6 m-4 max-w-md w-full max-h-[90vh] overflow-y-auto border border-cyan-400">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-xl font-bold text-cyan-400">🏆 Current Spotlight Campaign</h3>
+          <button 
+            onClick={closeModal}
+            className="text-gray-400 hover:text-white text-2xl leading-none"
+          >
+            ×
+          </button>
+        </div>
+        <div className="space-y-4">
+          <p className="text-gray-300">
+            Prize Pool: <span className="text-cyan-400 font-bold">$100</span> (increases to <span className="text-cyan-400 font-bold">$500</span> if we win HyperHack!)
+          </p>
+          <ul className="space-y-2 text-gray-300 text-sm">
+            <li>🥇 1st Place: $50 → $100</li>
+            <li>🥈 2nd Place: $25 → $50</li>
+            <li>🥉 3rd Place: $25 → $50</li>
+            <li>💰 Plus 10 additional $30 winners if we win!</li>
+          </ul>
+          <div className="pt-4">
+            <a 
+              href="https://t.me/LazaiTrader_bot" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-block text-center py-3 px-6 bg-gradient-to-r from-cyan-400 to-blue-500 font-medium text-gray-900 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Join Campaign
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CampaignPopup;
+
 // filepath: src\components\CardDeal.jsx
 import React from 'react'
 import { card } from '../assets'
@@ -715,172 +772,173 @@ const Clients = () => {
 export default Clients
 
 // filepath: src\components\Features.jsx
-import React from 'react'
-import { shield, star, send } from '../assets'
-import styles, { layout } from '../style'
+import React from 'react';
 
-const ProductFeature = ({ icon, title, description, features, reversed = false }) => (
-  <section className={reversed ? layout.sectionReverse : layout.section}>
-    <div className={reversed ? layout.sectionImgReverse : layout.sectionImg}>
-      <div className={`w-[100px] h-[100px] rounded-full ${styles.flexCenter} bg-blue-gradient`}>
-        <img
-          src={icon}
-          alt={title}
-          className='w-[60%] h-[60%] object-contain'
-        />
+// Mock icons - in real implementation, these would be imported from assets
+const StarIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>
+);
+
+const ShieldIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+  </svg>
+);
+
+const SendIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="m2 21 21-9L2 3v7l15 2-15 2v7z"/>
+  </svg>
+);
+
+const Features = () => {
+  const features = [
+    {
+      id: "feature-1",
+      icon: <StarIcon />,
+      title: "Strategy Vault",
+      content: "TEE-secured knowledge sharing system where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
+    },
+    {
+      id: "feature-2", 
+      icon: <ShieldIcon />,
+      title: "Trading Analytics",
+      content: "View trading charts and real-time PnL tracking directly in Telegram with comprehensive performance analytics and strategy insights."
+    },
+    {
+      id: "feature-3",
+      icon: <SendIcon />,
+      title: "Telegram Trading",
+      content: "Execute trades through simple Telegram commands. No complex interfaces - just direct trading with automated strategy execution."
+    }
+  ];
+
+  return (
+    <section id="features" className="flex flex-col py-16 px-6 sm:px-16">
+      <div className="text-center mb-16">
+        <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-tight mb-6">
+          Why Choose LazaiTrader
+        </h2>
+        <p className="font-normal text-gray-300 text-lg leading-8 max-w-2xl mx-auto">
+          Revolutionary AI-powered trading platform combining security, analytics, and simplicity in one Telegram interface.
+        </p>
       </div>
-      <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
-      <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
-    </div>
-    <div className={layout.sectionInfo}>
-      <h2 className={styles.heading2}>{title}</h2>
-      <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-6`}>
-        {description}
-      </p>
-      <div className="space-y-4">
-        {features.map((feature, index) => (
-          <div key={index} className="flex items-start space-x-3">
-            <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-            <div>
-              <h4 className="font-poppins font-semibold text-white text-[16px] mb-1">
-                {feature.title}
-              </h4>
-              <p className="font-poppins font-normal text-dimWhite text-[14px] leading-[20px]">
-                {feature.description}
-              </p>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <div 
+            key={feature.id} 
+            className="flex flex-col items-start p-6 rounded-2xl bg-transparent hover:bg-gray-800 transition-all duration-300 hover:shadow-2xl group"
+          >
+            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 mb-4 group-hover:scale-110 transition-transform">
+              {feature.icon}
             </div>
+            <h3 className="font-semibold text-xl text-white mb-3">
+              {feature.title}
+            </h3>
+            <p className="font-normal text-gray-300 text-base leading-6">
+              {feature.content}
+            </p>
           </div>
         ))}
       </div>
-    </div>  
-  </section>
-)
+    </section>
+  );
+};
 
-const ProductFeatures = () => {
-  const strategyVaultFeatures = [
-    {
-      title: "Secure Data Contribution",
-      description: "Your trading data is signed with your wallet and stored in a TEE (Trusted Execution Environment) - completely private and secure."
-    },
-    {
-      title: "Anonymous Analytics",
-      description: "All data is anonymized before analysis. No individual information is ever revealed, only collective insights."
-    },
-    {
-      title: "AI-Powered Recommendations", 
-      description: "Get personalized strategy suggestions based on anonymous performance data from the entire community."
-    },
-    {
-      title: "Collective Intelligence",
-      description: "Your contributions help improve suggestions for everyone while maintaining complete privacy protection."
-    }
-  ]
-
-  const tradingChartsFeatures = [
-    {
-      title: "Real-Time PnL Tracking",
-      description: "Monitor your profit and loss in real-time with detailed performance metrics updated after every trade."
-    },
-    {
-      title: "Visual Strategy Analysis",
-      description: "Analyze your trading patterns with comprehensive charts showing entry/exit points, success rates, and optimization opportunities."
-    },
-    {
-      title: "Telegram Integration",
-      description: "Access all your trading charts directly within Telegram - no need for external platforms or complex interfaces."
-    },
-    {
-      title: "Performance Optimization",
-      description: "Identify what's working and what isn't with detailed analytics to continuously improve your trading strategy."
-    }
-  ]
-
-  const conversationalTradingFeatures = [
-    {
-      title: "Natural Language Commands",
-      description: "Simply tell the bot what you want to trade using everyday language - no complex syntax or technical commands required."
-    },
-    {
-      title: "Multi-Agent AI System",
-      description: "Multiple AI agents work together to understand your intent, analyze markets, and execute optimal trading strategies."
-    },
-    {
-      title: "Zero Setup Required", 
-      description: "No wallet downloads, browser extensions, or complex configurations. Start trading in seconds with just Telegram."
-    },
-    {
-      title: "Intelligent Automation",
-      description: "AI handles market monitoring, strategy execution, and risk management while you focus on high-level decisions."
-    }
-  ]
-
-  return (
-    <>
-      <ProductFeature
-        icon={star}
-        title="Strategy Vault: Collective Trading Intelligence"
-        description="The world's first TEE-secured strategy sharing system. Contribute your trading data anonymously to help build collective intelligence while receiving AI-powered recommendations tailored to your trading style."
-        features={strategyVaultFeatures}
-        reversed={false}
-      />
-      
-      <ProductFeature
-        icon={shield}
-        title="Advanced Trading Charts & Analytics" 
-        description="Professional-grade trading analytics delivered directly to your Telegram. Track performance, analyze patterns, and optimize strategies with comprehensive charts and real-time PnL tracking."
-        features={tradingChartsFeatures}
-        reversed={true}
-      />
-      
-      <ProductFeature
-        icon={send}
-        title="Conversational AI Trading Platform"
-        description="Experience the future of trading with natural language processing and multi-agent AI. No complex interfaces - just intelligent conversations that execute sophisticated trading strategies."
-        features={conversationalTradingFeatures}
-        reversed={false}
-      />
-    </>
-  )
-}
-
-export default ProductFeatures
+export default Features;
 
 // filepath: src\components\Footer.jsx
-import React from 'react'
-import styles from '../style'
-import { gmetis } from '../assets' // You might want to replace this with LazaiTrader logo
-import { footerLinks, socialMedia } from '../constants'
+import React from 'react';
 
 const Footer = () => {
+  // Simplified footer links
+  const footerLinks = [
+    {
+      title: "Navigation",
+      links: [
+        { name: "Features", link: "#features" },
+        { name: "Competition", link: "#hyperhack" },
+        { name: "Get Started", link: "#get-started" }
+      ]
+    },
+    {
+      title: "Support",
+      links: [
+        { name: "AI Support Bot", link: "https://t.me/LazaiTrader_alithbot" },
+        { name: "Trading Bot", link: "https://t.me/LazaiTrader_bot" }
+      ]
+    },
+    {
+      title: "Partners",
+      links: [
+        { name: "HyperHack", link: "https://hyperhack.io" },
+        { name: "Hyperion Network", link: "https://hyperion.io" },
+        { name: "Metis", link: "https://metis.io" }
+      ]
+    }
+  ];
+
+  // Updated social media with X logo
+  const socialMedia = [
+    {
+      id: "x",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      ),
+      link: "https://x.com/lazaitrader"
+    },
+    {
+      id: "telegram",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+      ),
+      link: "https://t.me/LazaiTrader_bot"
+    }
+  ];
+
   return (
-    <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
-      <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
-        <div className='flex-1 flex flex-col justify-start mr-10'>
+    <section className="flex justify-center py-16 flex-col px-6 sm:px-16">
+      <div className="flex justify-start md:flex-row flex-col mb-8 w-full">
+        <div className="flex-1 flex flex-col justify-start mr-10">
           <div className="flex items-center mb-4">
-            <img
-              src={gmetis}
-              alt='LazaiTrader logo'
-              className='w-[72px] h-[72px] object-contain mr-4'
-            />
-            <span className='font-poppins font-bold text-[32px] text-white'>LazaiTrader</span>
+            <div className="w-18 h-18 bg-cyan-400 rounded-full mr-4 flex items-center justify-center">
+              <span className="text-gray-900 font-bold text-2xl">L</span>
+            </div>
+            <span className="font-bold text-3xl text-white">LazaiTrader</span>
           </div>
-          <p className={`${styles.paragraph} mt-4 max-w-[310px]`}>
+          <p className="font-normal text-gray-300 text-lg leading-8 mt-4 max-w-sm">
             AI-Powered Trading Platform on Telegram with TEE Security and Multi-Agent Intelligence
           </p>
         </div>
-        <div className='flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10'>
-          {footerLinks.map((link) => (
-            <div key={link.title} className='flex flex-col ss:my-0 my-4 min-w-[150px]'>
-              <h4 className='font-poppins font-medium text-[18px] leading-[27px] text-white'>
-                {link.title}
+        
+        <div className="flex-1 w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+          {footerLinks.map((linkGroup) => (
+            <div key={linkGroup.title} className="flex flex-col my-4 min-w-[150px]">
+              <h4 className="font-medium text-lg leading-7 text-white">
+                {linkGroup.title}
               </h4>
-              <ul className='list-none mt-4'>
-                {link.links.map((item, index) => (
+              <ul className="list-none mt-4">
+                {linkGroup.links.map((item, index) => (
                   <li 
                     key={item.name} 
-                    className={`font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer ${index !== link.links.length - 1 ? 'mb-4' : 'mb-0'}`}
+                    className={`font-normal text-base leading-6 text-gray-300 hover:text-cyan-400 cursor-pointer transition-colors ${
+                      index !== linkGroup.links.length - 1 ? 'mb-4' : 'mb-0'
+                    }`}
                   >
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                    <a 
+                      href={item.link} 
+                      target={item.link.startsWith('http') ? "_blank" : "_self"}
+                      rel={item.link.startsWith('http') ? "noopener noreferrer" : undefined}
+                    >
+                      {item.name}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -888,143 +946,198 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className='w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]'>
-        <p className='font-poppins font-normal text-center text-[18px] leading-[27px] text-white'>
+      
+      <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t border-gray-700">
+        <p className="font-normal text-center text-lg leading-7 text-white">
           2024 LazaiTrader. All Rights Reserved.
         </p>  
-        <div className='flex flex-row md:mt-0 mt-6'>
+        <div className="flex flex-row md:mt-0 mt-6">
           {socialMedia.map((social, index) => (
-            <a key={social.id} href={social.link} target="_blank" rel="noopener noreferrer">
-              <img
-                src={social.icon}
-                alt={social.id}
-                className={`w-[21px] h-[21px] object-contain cursor-pointer ${index !== socialMedia.length - 1 ? 'mr-6' : 'mr-0'}`}
-              />
+            <a 
+              key={social.id} 
+              href={social.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`text-gray-300 hover:text-cyan-400 transition-colors ${
+                index !== socialMedia.length - 1 ? 'mr-6' : 'mr-0'
+              }`}
+            >
+              {social.icon}
             </a>
           ))}
         </div>    
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
 
 // filepath: src\components\GetStarted.jsx
-import React from 'react'
-import { bill } from '../assets'
-import styles, { layout } from '../style'
-import Button from './Button'
+import React from 'react';
 
 const GetStarted = () => {
   return (
-    <section id='GetStarted' className={layout.sectionReverse}>
-      <div className={layout.sectionImgReverse}>
-      <img
-        src={bill}
-        alt='Telegram Trading Interface'
-        className='w-[100%] h-[100%] relative z-[5] object-contain'
-      />
-        <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
-        <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
-      </div>
-      <div className={layout.sectionInfo}>
-        <h2 className={styles.heading2}>Start Trading in Seconds</h2>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Experience the future of trading with LazaiTrader. No complex setups, no wallet management, no browser extensions. Simply start a conversation with our Telegram bot and begin trading with AI-powered strategies tailored to your preferences.
-        </p>
-        <div className="mt-6 mb-6">
-          <h3 className="text-white font-poppins font-semibold text-[20px] mb-3">🏆 Current Spotlight Campaign:</h3>
-          <div className="bg-dimBlue bg-opacity-20 p-4 rounded-lg">
-            <p className="text-dimWhite font-poppins text-[16px] mb-2">Prize Pool: <span className="text-secondary font-bold">$100</span> (increases to <span className="text-secondary font-bold">$500</span> if we win HyperHack!)</p>
-            <ul className="text-dimWhite font-poppins text-[14px] space-y-1">
-              <li>🥇 1st Place: $50 → $100</li>
-              <li>🥈 2nd Place: $25 → $50</li>
-              <li>🥉 3rd Place: $25 → $50</li>
-              <li>💰 Plus 10 additional $30 winners if we win!</li>
-            </ul>
+    <section id="get-started" className="flex md:flex-row-reverse md:items-center flex-col py-16 px-6 sm:px-16">
+      <div className="flex-1 flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10 relative">
+        <div className="w-full h-96 relative z-5 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <svg className="w-12 h-12 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 2.5l-3 3-3-3h6zM4 6h16v2l-8 5L4 8V6z"/>
+              </svg>
+            </div>
+            <p className="text-gray-300 font-medium">Telegram Trading Interface</p>
           </div>
         </div>
-        <Button 
-          styles="mt-10" 
-          text="Launch Telegram Bot" 
-          link="https://t.me/LazaiTrader_bot" 
-        />
+        <div className="absolute z-3 -left-1/4 top-0 w-1/2 h-1/2 rounded-full bg-white/20 blur-3xl"/>
+        <div className="absolute z-0 -left-1/4 bottom-0 w-1/2 h-1/2 rounded-full bg-gradient-to-r from-pink-400/20 to-purple-400/20 blur-3xl"/>
+      </div>
+      
+      <div className="flex-1 flex justify-start items-start flex-col">
+        <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-tight w-full">
+          Start Trading in Seconds
+        </h2>
+        <p className="font-normal text-gray-300 text-lg leading-8 max-w-md mt-5">
+          Experience the future of trading with LazaiTrader. No complex setups, no wallet management, no browser extensions. Simply start a conversation with our Telegram bot and begin trading with automated strategies.
+        </p>
+        
+        <div className="mt-8 space-y-4">
+          <div className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h4 className="font-semibold text-white text-base mb-1">
+                Simple Commands
+              </h4>
+              <p className="font-normal text-gray-300 text-sm leading-5">
+                Execute trades through straightforward Telegram messages - no complex interfaces needed.
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h4 className="font-semibold text-white text-base mb-1">
+                Real-time Analytics
+              </h4>
+              <p className="font-normal text-gray-300 text-sm leading-5">
+                View your trading performance and charts directly in Telegram with instant updates.
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-start space-x-3">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+            <div>
+              <h4 className="font-semibold text-white text-base mb-1">
+                TEE Security
+              </h4>
+              <p className="font-normal text-gray-300 text-sm leading-5">
+                All data processing happens in secure Trusted Execution Environments for maximum privacy.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <a 
+          href="https://t.me/LazaiTrader_bot"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 py-4 px-6 bg-gradient-to-r from-cyan-400 to-blue-500 font-medium text-lg text-gray-900 rounded-xl hover:opacity-90 transition-opacity"
+        >
+          Launch Telegram Bot
+        </a>
       </div>  
     </section>
-  )
-}
+  );
+};
 
-export default GetStarted
+export default GetStarted;
 
 // filepath: src\components\Hero.jsx
-import styles from '../style'
-import { robot } from '../assets'
-import Button from './Button'
+import React from 'react';
 
 const Hero = () => {
+  const handleLearnMore = (e) => {
+    e.preventDefault();
+    document.getElementById('features').scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
   return (
-    <section id='home' className={`flex md:flex-row flex-col ${styles.paddingY}`}>
-      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
-        <div className='flex flex-row justify-between items-center w-full'>
-          <h1 className='flex-1 font-poppins font-semibold ss:text-[72px] text-[42px] text-white ss:leading-[100.8px] leading-[60px]'>
-            LazaiTrader <br className='sm:block hidden'/> {" "}
-            <span className='text-gradient'>AI-Powered</span> {" "}
+    <section id="home" className="flex md:flex-row flex-col py-16 px-6 sm:px-16">
+      <div className="flex-1 flex flex-col xl:px-0">
+        <div className="flex flex-row justify-between items-center w-full">
+          <h1 className="flex-1 font-semibold text-4xl sm:text-6xl lg:text-7xl text-white leading-tight">
+            LazaiTrader <br className="sm:block hidden" />{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              AI-Powered
+            </span>{" "}
           </h1>
         </div>
-        <h1 className='font-poppins font-semibold ss:text-[68px] text-[42px] text-white ss:leading-[100px] leading-[60px] w-full'>
+        <h1 className="font-semibold text-4xl sm:text-6xl lg:text-7xl text-white leading-tight w-full">
           Trading on Telegram.
         </h1>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          Experience the future of trading with LazaiTrader - a revolutionary platform combining conversational AI, TEE-secured Strategy Vault, and professional trading analytics, all accessible through Telegram.
+        <p className="font-normal text-gray-300 text-lg leading-8 max-w-md mt-5">
+          Revolutionary platform combining AI trading strategies, TEE-secured analytics, and professional trading tools, all accessible through simple Telegram conversations.
         </p>
         
         {/* Key highlights */}
         <div className="flex flex-wrap gap-6 mt-6 mb-8">
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
-            <span className="text-dimWhite font-poppins text-[14px]">110+ Active Users</span>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+            <span className="text-gray-300 font-normal text-sm">110+ Active Users</span>
           </div>
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
-            <span className="text-dimWhite font-poppins text-[14px]">10K+ Transactions</span>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+            <span className="text-gray-300 font-normal text-sm">10K+ Transactions</span>
           </div>
           <div className="flex items-center">
-            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
-            <span className="text-dimWhite font-poppins text-[14px]">TEE Security</span>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+            <span className="text-gray-300 font-normal text-sm">TEE Security</span>
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button 
-            styles="" 
-            text="Start Trading Now" 
-            link="https://t.me/LazaiTrader_bot" 
-          />
           <a 
-            href="#features" 
-            className="py-4 px-6 font-poppins font-medium text-[18px] text-secondary border border-secondary rounded-[10px] hover:bg-secondary hover:text-primary transition-all duration-300 text-center"
+            href="https://t.me/LazaiTrader_bot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-4 px-6 bg-gradient-to-r from-cyan-400 to-blue-500 font-medium text-lg text-gray-900 rounded-xl hover:opacity-90 transition-opacity text-center"
+          >
+            Start Trading Now
+          </a>
+          <button 
+            onClick={handleLearnMore}
+            className="py-4 px-6 font-medium text-lg text-cyan-400 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300 text-center"
           >
             Learn More
-          </a>
+          </button>
         </div>
       </div>
       
-      <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
-        <img
-          src={robot}
-          alt='AI Trading Bot'
-          className='w-[100%] h-[100%] relative z-[5]'
-        />
-        <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
-        <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40" />
-        <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient"/>
+      <div className="flex-1 flex justify-center items-center md:my-0 my-10 relative">
+        <div className="w-80 h-80 rounded-full bg-gradient-to-r from-cyan-400/20 to-purple-400/20 flex items-center justify-center relative">
+          <div className="w-64 h-64 rounded-full bg-gradient-to-r from-cyan-400/30 to-blue-500/30 flex items-center justify-center">
+            <div className="w-48 h-48 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center">
+              <svg className="w-24 h-24 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+          </div>
+          <div className="absolute z-0 w-40 h-32 top-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 rounded-full blur-3xl" />
+          <div className="absolute z-0 w-80 h-80 rounded-full bg-white/10 blur-3xl bottom-40" />
+          <div className="absolute z-0 w-48 h-48 right-20 bottom-20 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"/>
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
 
 // filepath: src\components\HyperHack.jsx
 import React from 'react';
@@ -1064,12 +1177,21 @@ const HyperHack = () => {
 export default HyperHack;
 
 // filepath: src\components\Navbar.jsx
-import React, { useState } from 'react'
-import { close, gmetis, menu } from '../assets'
-import { navLinks } from '../constants'
+import React, { useState } from 'react';
+import { close, gmetis, menu } from '../assets';
+import { navLinks } from '../constants';
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
+
+  const handleNavClick = (navId) => {
+    setToggle(false); // Close mobile menu when clicking a nav item
+    // Smooth scroll to section
+    const element = document.getElementById(navId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <nav className='w-full flex py-6 justify-between items-center navbar'>
@@ -1077,176 +1199,60 @@ const Navbar = () => {
         <img src={gmetis} alt='LazaiTrader' className='w-[48px] h-[48px] object-contain mr-3'/>
         <span className='font-poppins font-bold text-[24px] text-white'>LazaiTrader</span>
       </div>
+      
+      {/* Desktop Menu */}
       <ul className='list-none sm:flex hidden justify-end items-center flex-1'>
         {navLinks.map((nav, i) => (
           <li 
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] ${i === navLinks.length - 1 ? 'mr-0' : 'mr-10'} text-white mr-10`}
+            className={`font-poppins font-normal cursor-pointer text-[16px] ${
+              i === navLinks.length - 1 ? 'mr-0' : 'mr-10'
+            } text-white hover:text-secondary transition-colors`}
           >
-            <a href={`#${nav.id}`}>
+            <button onClick={() => handleNavClick(nav.id)}>
               {nav.title}
-            </a>
+            </button>
           </li>        
         ))}
       </ul>
+      
+      {/* Mobile Menu Button */}
       <div className='sm:hidden flex flex-1 justify-end items-center'>
         <img
           src={toggle ? close : menu}
           alt='menu'
-          className='w-[28px] h-[28px] object-contain'
+          className='w-[28px] h-[28px] object-contain cursor-pointer'
           onClick={() => setToggle((previous) => !previous)}
         />
-        <div className={`${toggle ? 'flex' : 'hidden'} p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}>
-          <ul className='list-none flex flex-col justify-end items-center flex-1'>
+        
+        {/* Mobile Menu */}
+        <div className={`${
+          toggle ? 'flex' : 'hidden'
+        } p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar z-50`}>
+          <ul className='list-none flex flex-col justify-end items-start flex-1 w-full'>
             {navLinks.map((nav, i) => (
               <li 
                 key={nav.id}
-                className={`font-poppins font-normal cursor-pointer text-[16px] ${i === navLinks.length - 1 ? 'mr-0' : 'mb-4'} text-white mr-10`}
+                className={`font-poppins font-normal cursor-pointer text-[16px] ${
+                  i === navLinks.length - 1 ? 'mb-0' : 'mb-4'
+                } text-white hover:text-secondary transition-colors w-full`}
               >
-                <a href={`#${nav.id}`}>
+                <button 
+                  onClick={() => handleNavClick(nav.id)}
+                  className="w-full text-left"
+                >
                   {nav.title}
-                </a>
+                </button>
               </li>        
             ))}
           </ul>
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
-
-// filepath: src\components\ProductFeatures.jsx
-import React from 'react'
-import { shield, star, send } from '../assets'
-import styles, { layout } from '../style'
-
-const ProductFeature = ({ icon, title, description, features, reversed = false }) => (
-  <section className={reversed ? layout.sectionReverse : layout.section}>
-    <div className={reversed ? layout.sectionImgReverse : layout.sectionImg}>
-      <div className={`w-[100px] h-[100px] rounded-full ${styles.flexCenter} bg-blue-gradient`}>
-        <img
-          src={icon}
-          alt={title}
-          className='w-[60%] h-[60%] object-contain'
-        />
-      </div>
-      <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
-      <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
-    </div>
-    <div className={layout.sectionInfo}>
-      <h2 className={styles.heading2}>{title}</h2>
-      <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-6`}>
-        {description}
-      </p>
-      <div className="space-y-4">
-        {features.map((feature, index) => (
-          <div key={index} className="flex items-start space-x-3">
-            <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-            <div>
-              <h4 className="font-poppins font-semibold text-white text-[16px] mb-1">
-                {feature.title}
-              </h4>
-              <p className="font-poppins font-normal text-dimWhite text-[14px] leading-[20px]">
-                {feature.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>  
-  </section>
-)
-
-const ProductFeatures = () => {
-  const strategyVaultFeatures = [
-    {
-      title: "Secure Data Contribution",
-      description: "Your trading data is signed with your wallet and stored in a TEE (Trusted Execution Environment) - completely private and secure."
-    },
-    {
-      title: "Anonymous Analytics",
-      description: "All data is anonymized before analysis. No individual information is ever revealed, only collective insights."
-    },
-    {
-      title: "AI-Powered Recommendations", 
-      description: "Get personalized strategy suggestions based on anonymous performance data from the entire community."
-    },
-    {
-      title: "Collective Intelligence",
-      description: "Your contributions help improve suggestions for everyone while maintaining complete privacy protection."
-    }
-  ]
-
-  const tradingChartsFeatures = [
-    {
-      title: "Real-Time PnL Tracking",
-      description: "Monitor your profit and loss in real-time with detailed performance metrics updated after every trade."
-    },
-    {
-      title: "Visual Strategy Analysis",
-      description: "Analyze your trading patterns with comprehensive charts showing entry/exit points, success rates, and optimization opportunities."
-    },
-    {
-      title: "Telegram Integration",
-      description: "Access all your trading charts directly within Telegram - no need for external platforms or complex interfaces."
-    },
-    {
-      title: "Performance Optimization",
-      description: "Identify what's working and what isn't with detailed analytics to continuously improve your trading strategy."
-    }
-  ]
-
-  const conversationalTradingFeatures = [
-    {
-      title: "Natural Language Commands",
-      description: "Simply tell the bot what you want to trade using everyday language - no complex syntax or technical commands required."
-    },
-    {
-      title: "Multi-Agent AI System",
-      description: "Multiple AI agents work together to understand your intent, analyze markets, and execute optimal trading strategies."
-    },
-    {
-      title: "Zero Setup Required", 
-      description: "No wallet downloads, browser extensions, or complex configurations. Start trading in seconds with just Telegram."
-    },
-    {
-      title: "Intelligent Automation",
-      description: "AI handles market monitoring, strategy execution, and risk management while you focus on high-level decisions."
-    }
-  ]
-
-  return (
-    <>
-      <ProductFeature
-        icon={star}
-        title="Strategy Vault: Collective Trading Intelligence"
-        description="The world's first TEE-secured strategy sharing system. Contribute your trading data anonymously to help build collective intelligence while receiving AI-powered recommendations tailored to your trading style."
-        features={strategyVaultFeatures}
-        reversed={false}
-      />
-      
-      <ProductFeature
-        icon={shield}
-        title="Advanced Trading Charts & Analytics" 
-        description="Professional-grade trading analytics delivered directly to your Telegram. Track performance, analyze patterns, and optimize strategies with comprehensive charts and real-time PnL tracking."
-        features={tradingChartsFeatures}
-        reversed={true}
-      />
-      
-      <ProductFeature
-        icon={send}
-        title="Conversational AI Trading Platform"
-        description="Experience the future of trading with natural language processing and multi-agent AI. No complex interfaces - just intelligent conversations that execute sophisticated trading strategies."
-        features={conversationalTradingFeatures}
-        reversed={false}
-      />
-    </>
-  )
-}
-
-export default ProductFeatures
+export default Navbar;
 
 // filepath: src\components\Stats.jsx
 import React from 'react'
@@ -1269,22 +1275,22 @@ const Stats = () => {
 export default Stats
 
 // filepath: src\components\index.js
-import GetStarted from './GetStarted' // Renamed from Billing
-import Features from './Features' // Renamed from Business  
-import HyperHack from './HyperHack' // Renamed from CVP
-import CardDeal from './CardDeal'
-import Clients from './Clients'
-import CTA from './CTA'
-import Footer from './Footer'
-import Hero from './Hero'
-import Navbar from './Navbar'
-import Stats from './Stats'
-import ProductFeatures from './ProductFeatures'
+import GetStarted from './GetStarted';
+import Features from './Features'; 
+import HyperHack from './HyperHack';
+import CardDeal from './CardDeal';
+import Clients from './Clients';
+import CTA from './CTA';
+import Footer from './Footer';
+import Hero from './Hero';
+import Navbar from './Navbar';
+import Stats from './Stats';
+import CampaignPopup from './CampaignPopup';
 
 export {
-    GetStarted, // Renamed from Billing
-    Features, // Renamed from Business
-    HyperHack, // Renamed from CVP
+    GetStarted,
+    Features, 
+    HyperHack,
     CardDeal,
     Clients,
     CTA,
@@ -1292,12 +1298,10 @@ export {
     Hero,
     Navbar,
     Stats,
-    ProductFeatures
+    CampaignPopup
 }
 
 // filepath: src\constants\index.js
-import { people01, people02, people03, twitter, telegram, airbnb, binance, coinbase, dropbox, send, shield, star } from "../assets";
-
 export const navLinks = [
   {
     id: "home",
@@ -1312,66 +1316,51 @@ export const navLinks = [
     title: "Competition",
   },
   {
-    id: "GetStarted",
+    id: "get-started", // Updated to match the section id
     title: "Get Started",
   },
 ];
 
+// Simplified features - no duplicates
 export const features = [
   {
     id: "feature-1",
-    icon: star,
+    icon: "star",
     title: "Strategy Vault",
-    content:
-      "Revolutionary TEE-secured knowledge sharing system where users contribute trading data anonymously to a collective intelligence that provides AI-powered strategy recommendations.",
+    content: "TEE-secured knowledge sharing system where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
   },
   {
     id: "feature-2", 
-    icon: shield,
-    title: "Trading Charts & Analytics",
-    content:
-      "View your private trading charts directly in Telegram with real-time PnL tracking, performance analytics, and visual strategy optimization tools.",
+    icon: "shield",
+    title: "Trading Analytics",
+    content: "View trading charts and real-time PnL tracking directly in Telegram with comprehensive performance analytics and strategy insights."
   },
   {
     id: "feature-3",
-    icon: send,
-    title: "Conversational Trading",
-    content:
-      "Trade directly through Telegram with natural language commands. No browser, no wallet management - just conversation-driven trading with multi-agent AI assistance.",
-  },
-  {
-    id: "feature-4",
-    icon: star,
-    title: "AI Support Agent",
-    content:
-      "Get instant help with our Alith-powered support agent using RAG technology. Available 24/7 to assist with trading questions, commands, and troubleshooting.",
-  },
+    icon: "send",
+    title: "Telegram Trading",
+    content: "Execute trades through simple Telegram commands. No complex interfaces - just direct trading with automated strategy execution."
+  }
 ];
 
 export const feedback = [
   {
     id: "feedback-1",
-    content:
-      "The Strategy Vault is game-changing! Getting AI recommendations based on anonymous community data has improved my trading performance significantly.",
+    content: "The Strategy Vault is game-changing! Getting AI recommendations based on anonymous community data has improved my trading performance significantly.",
     name: "Alex Chen",
     title: "Active Trader", 
-    img: people01,
   },
   {
     id: "feedback-2",
-    content:
-      "I love the trading charts in Telegram. Seeing my PnL and performance analytics without leaving the chat makes strategy optimization so much easier.",
+    content: "I love the trading charts in Telegram. Seeing my PnL and performance analytics without leaving the chat makes strategy optimization so much easier.",
     name: "Maria Rodriguez",
     title: "DeFi Enthusiast",
-    img: people02,
   },
   {
     id: "feedback-3",
-    content:
-      "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the TEE security gives me complete peace of mind.",
+    content: "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the TEE security gives me complete peace of mind.",
     name: "James Thompson",
     title: "Crypto Investor",
-    img: people03,
   },
 ];
 
@@ -1393,77 +1382,43 @@ export const stats = [
   },
 ];
 
+// Simplified footer links - no duplicates, cleaner structure
 export const footerLinks = [
   {
-    title: "Useful Links",
+    title: "Navigation",
     links: [
-      {
-        name: "Features",
-        link: "#features",
-      },
-      {
-        name: "Competition", 
-        link: "#hyperhack",
-      },
-      {
-        name: "Get Started",
-        link: "#GetStarted",
-      },
-      {
-        name: "Telegram Bot",
-        link: "https://t.me/LazaiTrader_bot",
-      },
+      { name: "Features", link: "#features" },
+      { name: "Competition", link: "#hyperhack" },
+      { name: "Get Started", link: "#get-started" }
     ],
   },
   {
     title: "Support",
     links: [
-      {
-        name: "AI Support Agent",
-        link: "https://t.me/LazaiTrader_alithbot",
-      },
-      {
-        name: "Trading Help", 
-        link: "https://t.me/LazaiTrader_alithbot",
-      },
-      {
-        name: "Commands Guide",
-        link: "https://t.me/LazaiTrader_alithbot",
-      },
-      {
-        name: "Troubleshooting",
-        link: "https://t.me/LazaiTrader_alithbot",
-      },
+      { name: "AI Support Bot", link: "https://t.me/LazaiTrader_alithbot" },
+      { name: "Trading Bot", link: "https://t.me/LazaiTrader_bot" }
     ],
   },
   {
-    title: "Partner",
+    title: "Partners",
     links: [
-      {
-        name: "HyperHack",
-        link: "https://hyperhack.io",
-      },
-      {
-        name: "Hyperion Network",
-        link: "https://hyperion.io", 
-      },
-      {
-        name: "Metis",
-        link: "https://metis.io",
-      },
+      { name: "HyperHack", link: "https://hyperhack.io" },
+      { name: "Hyperion Network", link: "https://hyperion.io" },
+      { name: "Metis", link: "https://metis.io" }
     ],
   },
 ];
 
+// Updated social media with X instead of Twitter
 export const socialMedia = [
   {
     id: "social-media-1",
-    icon: twitter,
-    link: "https://www.twitter.com/",
+    icon: "x", // Updated from twitter to x
+    link: "https://x.com/lazaitrader",
   },
   {
     id: "social-media-2",
-    icon: telegram,
+    icon: "telegram",
     link: "https://t.me/LazaiTrader_bot",
   },
 ];
@@ -1471,19 +1426,19 @@ export const socialMedia = [
 export const clients = [
   {
     id: "client-1",
-    logo: airbnb,
+    logo: "airbnb",
   },
   {
     id: "client-2", 
-    logo: binance,
+    logo: "binance",
   },
   {
     id: "client-3",
-    logo: coinbase,
+    logo: "coinbase",
   },
   {
     id: "client-4",
-    logo: dropbox,
+    logo: "dropbox",
   },
 ];
 

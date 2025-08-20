@@ -3,18 +3,19 @@ import {
   GetStarted, 
   Features, 
   CTA,
-  HyperHack, // Renamed from CVP
+  HyperHack,
   Footer, 
   Hero, 
   Navbar, 
   Stats 
 } from './components';
-import ProductFeatures from './components/ProductFeatures';
+import CampaignPopup from './components/CampaignPopup';
 import styles from './style';
 
 const App = () => {
   return (
     <div className='bg-primary w-full overflow-hidden'>
+      <CampaignPopup />
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
           <Navbar/>
@@ -28,10 +29,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
-          <Features/> {/* Overview features */}
-          <ProductFeatures/> {/* Detailed product features */}
-          <HyperHack/> {/* Renamed from CVP */}
-          <GetStarted/> {/* Renamed from Billing */}
+          <Features/> {/* Single, cleaned up features section */}
+          <HyperHack/>
+          <GetStarted/>
           <CTA/>
           <Footer/>     
         </div>

@@ -1,129 +1,77 @@
-import React from 'react'
-import { shield, star, send } from '../assets'
-import styles, { layout } from '../style'
+import React from 'react';
 
-const ProductFeature = ({ icon, title, description, features, reversed = false }) => (
-  <section className={reversed ? layout.sectionReverse : layout.section}>
-    <div className={reversed ? layout.sectionImgReverse : layout.sectionImg}>
-      <div className={`w-[100px] h-[100px] rounded-full ${styles.flexCenter} bg-blue-gradient`}>
-        <img
-          src={icon}
-          alt={title}
-          className='w-[60%] h-[60%] object-contain'
-        />
+// Mock icons - in real implementation, these would be imported from assets
+const StarIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>
+);
+
+const ShieldIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+  </svg>
+);
+
+const SendIcon = () => (
+  <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+    <path d="m2 21 21-9L2 3v7l15 2-15 2v7z"/>
+  </svg>
+);
+
+const Features = () => {
+  const features = [
+    {
+      id: "feature-1",
+      icon: <StarIcon />,
+      title: "Strategy Vault",
+      content: "TEE-secured knowledge sharing system where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
+    },
+    {
+      id: "feature-2", 
+      icon: <ShieldIcon />,
+      title: "Trading Analytics",
+      content: "View trading charts and real-time PnL tracking directly in Telegram with comprehensive performance analytics and strategy insights."
+    },
+    {
+      id: "feature-3",
+      icon: <SendIcon />,
+      title: "Telegram Trading",
+      content: "Execute trades through simple Telegram commands. No complex interfaces - just direct trading with automated strategy execution."
+    }
+  ];
+
+  return (
+    <section id="features" className="flex flex-col py-16 px-6 sm:px-16">
+      <div className="text-center mb-16">
+        <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-tight mb-6">
+          Why Choose LazaiTrader
+        </h2>
+        <p className="font-normal text-gray-300 text-lg leading-8 max-w-2xl mx-auto">
+          Revolutionary AI-powered trading platform combining security, analytics, and simplicity in one Telegram interface.
+        </p>
       </div>
-      <div className='absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient'/>
-      <div className='absolute z-[0] -left-1/2 bottom-0 w-[50%] h-[50%] rounded-full pink__gradient'/>
-    </div>
-    <div className={layout.sectionInfo}>
-      <h2 className={styles.heading2}>{title}</h2>
-      <p className={`${styles.paragraph} max-w-[470px] mt-5 mb-6`}>
-        {description}
-      </p>
-      <div className="space-y-4">
-        {features.map((feature, index) => (
-          <div key={index} className="flex items-start space-x-3">
-            <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0"></div>
-            <div>
-              <h4 className="font-poppins font-semibold text-white text-[16px] mb-1">
-                {feature.title}
-              </h4>
-              <p className="font-poppins font-normal text-dimWhite text-[14px] leading-[20px]">
-                {feature.description}
-              </p>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <div 
+            key={feature.id} 
+            className="flex flex-col items-start p-6 rounded-2xl bg-transparent hover:bg-gray-800 transition-all duration-300 hover:shadow-2xl group"
+          >
+            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 mb-4 group-hover:scale-110 transition-transform">
+              {feature.icon}
             </div>
+            <h3 className="font-semibold text-xl text-white mb-3">
+              {feature.title}
+            </h3>
+            <p className="font-normal text-gray-300 text-base leading-6">
+              {feature.content}
+            </p>
           </div>
         ))}
       </div>
-    </div>  
-  </section>
-)
+    </section>
+  );
+};
 
-const ProductFeatures = () => {
-  const strategyVaultFeatures = [
-    {
-      title: "Secure Data Contribution",
-      description: "Your trading data is signed with your wallet and stored in a TEE (Trusted Execution Environment) - completely private and secure."
-    },
-    {
-      title: "Anonymous Analytics",
-      description: "All data is anonymized before analysis. No individual information is ever revealed, only collective insights."
-    },
-    {
-      title: "AI-Powered Recommendations", 
-      description: "Get personalized strategy suggestions based on anonymous performance data from the entire community."
-    },
-    {
-      title: "Collective Intelligence",
-      description: "Your contributions help improve suggestions for everyone while maintaining complete privacy protection."
-    }
-  ]
-
-  const tradingChartsFeatures = [
-    {
-      title: "Real-Time PnL Tracking",
-      description: "Monitor your profit and loss in real-time with detailed performance metrics updated after every trade."
-    },
-    {
-      title: "Visual Strategy Analysis",
-      description: "Analyze your trading patterns with comprehensive charts showing entry/exit points, success rates, and optimization opportunities."
-    },
-    {
-      title: "Telegram Integration",
-      description: "Access all your trading charts directly within Telegram - no need for external platforms or complex interfaces."
-    },
-    {
-      title: "Performance Optimization",
-      description: "Identify what's working and what isn't with detailed analytics to continuously improve your trading strategy."
-    }
-  ]
-
-  const conversationalTradingFeatures = [
-    {
-      title: "Natural Language Commands",
-      description: "Simply tell the bot what you want to trade using everyday language - no complex syntax or technical commands required."
-    },
-    {
-      title: "Multi-Agent AI System",
-      description: "Multiple AI agents work together to understand your intent, analyze markets, and execute optimal trading strategies."
-    },
-    {
-      title: "Zero Setup Required", 
-      description: "No wallet downloads, browser extensions, or complex configurations. Start trading in seconds with just Telegram."
-    },
-    {
-      title: "Intelligent Automation",
-      description: "AI handles market monitoring, strategy execution, and risk management while you focus on high-level decisions."
-    }
-  ]
-
-  return (
-    <>
-      <ProductFeature
-        icon={star}
-        title="Strategy Vault: Collective Trading Intelligence"
-        description="The world's first TEE-secured strategy sharing system. Contribute your trading data anonymously to help build collective intelligence while receiving AI-powered recommendations tailored to your trading style."
-        features={strategyVaultFeatures}
-        reversed={false}
-      />
-      
-      <ProductFeature
-        icon={shield}
-        title="Advanced Trading Charts & Analytics" 
-        description="Professional-grade trading analytics delivered directly to your Telegram. Track performance, analyze patterns, and optimize strategies with comprehensive charts and real-time PnL tracking."
-        features={tradingChartsFeatures}
-        reversed={true}
-      />
-      
-      <ProductFeature
-        icon={send}
-        title="Conversational AI Trading Platform"
-        description="Experience the future of trading with natural language processing and multi-agent AI. No complex interfaces - just intelligent conversations that execute sophisticated trading strategies."
-        features={conversationalTradingFeatures}
-        reversed={false}
-      />
-    </>
-  )
-}
-
-export default ProductFeatures
+export default Features;
