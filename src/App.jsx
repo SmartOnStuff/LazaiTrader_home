@@ -9,6 +9,7 @@ import {
   Navbar, 
   Stats 
 } from './components';
+import ProductFeatures from './components/ProductFeatures';
 import styles from './style';
 
 const App = () => {
@@ -27,8 +28,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
+          <Features/> {/* Overview features */}
+          <ProductFeatures/> {/* Detailed product features */}
           <HyperHack/> {/* Renamed from CVP */}
-          <Features/> {/* Renamed from Business */}
           <GetStarted/> {/* Renamed from Billing */}
           <CTA/>
           <Footer/>     

@@ -1,5 +1,6 @@
 import styles from '../style'
 import { robot } from '../assets'
+import Button from './Button'
 
 const Hero = () => {
   return (
@@ -15,9 +16,40 @@ const Hero = () => {
           Trading on Telegram.
         </h1>
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-          LazaiTrader is a multi-agent AI trading platform that operates directly through Telegram. Experience sophisticated trading made accessible with conversational AI, secure TEE technology, and no need for wallets or browsers.
+          Experience the future of trading with LazaiTrader - a revolutionary platform combining conversational AI, TEE-secured Strategy Vault, and professional trading analytics, all accessible through Telegram.
         </p>
+        
+        {/* Key highlights */}
+        <div className="flex flex-wrap gap-6 mt-6 mb-8">
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">110+ Active Users</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">10K+ Transactions</span>
+          </div>
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-secondary rounded-full mr-3"></div>
+            <span className="text-dimWhite font-poppins text-[14px]">TEE Security</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button 
+            styles="" 
+            text="Start Trading Now" 
+            link="https://t.me/LazaiTrader_bot" 
+          />
+          <a 
+            href="#features" 
+            className="py-4 px-6 font-poppins font-medium text-[18px] text-secondary border border-secondary rounded-[10px] hover:bg-secondary hover:text-primary transition-all duration-300 text-center"
+          >
+            Learn More
+          </a>
+        </div>
       </div>
+      
       <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
         <img
           src={robot}

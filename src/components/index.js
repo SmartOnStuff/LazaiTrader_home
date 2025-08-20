@@ -8,6 +8,7 @@ import Footer from './Footer'
 import Hero from './Hero'
 import Navbar from './Navbar'
 import Stats from './Stats'
+import ProductFeatures from './ProductFeatures'
 
 export {
     GetStarted, // Renamed from Billing
@@ -19,5 +20,6 @@ export {
     Footer,
     Hero,
     Navbar,
-    Stats
+    Stats,
+    ProductFeatures
 }
