@@ -1,4 +1,4 @@
-import gmetis from './gmetis.png' // This is your new logo
+import gmetis from './lazaitrader.png' // This is your new logo
 import airbnb from "./airbnb.png";
 import bill from "./bill.png";
 import binance from "./binance.png";

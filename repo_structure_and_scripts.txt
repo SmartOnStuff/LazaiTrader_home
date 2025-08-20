@@ -12,7 +12,7 @@ LazaiTrader_home/
 │   ├── tailwind.config.cjs
 │   ├── vite.config.js
 │   ├── public/
-│   │   ├── gmetis.png
+│   │   ├── lazaitrader.png
 │   │   ├── vite.svg
 │   ├── src/
 │   │   ├── App.jsx
@@ -35,7 +35,7 @@ LazaiTrader_home/
 │   │   │   ├── cvpbadge.svg
 │   │   │   ├── dropbox.png
 │   │   │   ├── facebook.svg
-│   │   │   ├── gmetis.png
+│   │   │   ├── lazaitrader.png
 │   │   │   ├── google.svg
 │   │   │   ├── index.js
 │   │   │   ├── instagram.svg
@@ -166,7 +166,7 @@ if __name__ == "__main__":
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/gmetis.png" />
+    <link rel="icon" type="image/png" href="/lazaitrader.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LazaiTrader - AI-Powered Trading on Telegram</title>
   </head>
@@ -231,7 +231,7 @@ export default defineConfig({
   plugins: [react()],
 })
 
-// filepath: public\gmetis.png
+// filepath: public\lazaitrader.png
 (BINARY FILE SKIPPED)
 
 // filepath: public\vite.svg
@@ -516,14 +516,14 @@ export default styles;
 // filepath: src\assets\facebook.svg
 (BINARY FILE SKIPPED)
 
-// filepath: src\assets\gmetis.png
+// filepath: src\assets\lazaitrader.png
 (BINARY FILE SKIPPED)
 
 // filepath: src\assets\google.svg
 (BINARY FILE SKIPPED)
 
 // filepath: src\assets\index.js
-import gmetis from './gmetis.png' // This is your new logo
+import gmetis from './lazaitrader.png' // This is your new logo
 import airbnb from "./airbnb.png";
 import bill from "./bill.png";
 import binance from "./binance.png";
