@@ -25,6 +25,7 @@ LazaiTrader_home/
 │   │   │   ├── Send.svg
 │   │   │   ├── Shield.svg
 │   │   │   ├── Star.svg
+│   │   │   ├── airbnb.png
 │   │   │   ├── apple.svg
 │   │   │   ├── arrow-up.svg
 │   │   │   ├── bill.png
@@ -32,11 +33,12 @@ LazaiTrader_home/
 │   │   │   ├── card.png
 │   │   │   ├── close.svg
 │   │   │   ├── coinbase.png
-│   │   │   ├── hyperion.svg
+│   │   │   ├── cvpbadge.svg
 │   │   │   ├── dropbox.png
 │   │   │   ├── facebook.svg
 │   │   │   ├── gmetis.png
 │   │   │   ├── google.svg
+│   │   │   ├── hyperion.svg
 │   │   │   ├── index.js
 │   │   │   ├── instagram.svg
 │   │   │   ├── lazaitrader.png
@@ -245,7 +247,6 @@ import React from 'react';
 import { 
   GetStarted, 
   Features, 
-  CTA,
   HyperHack,
   Footer, 
   Hero, 
@@ -272,10 +273,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
-          <Features/> {/* Single, cleaned up features section */}
+          <Features/>
           <HyperHack/>
           <GetStarted/>
-          <CTA/>
           <Footer/>     
         </div>
       </div>
@@ -486,6 +486,9 @@ export default styles;
 // filepath: src\assets\Star.svg
 (BINARY FILE SKIPPED)
 
+// filepath: src\assets\airbnb.png
+(BINARY FILE SKIPPED)
+
 // filepath: src\assets\apple.svg
 (BINARY FILE SKIPPED)
 
@@ -507,7 +510,7 @@ export default styles;
 // filepath: src\assets\coinbase.png
 (BINARY FILE SKIPPED)
 
-// filepath: src\assets\hyperion.svg
+// filepath: src\assets\cvpbadge.svg
 (BINARY FILE SKIPPED)
 
 // filepath: src\assets\dropbox.png
@@ -522,9 +525,11 @@ export default styles;
 // filepath: src\assets\google.svg
 (BINARY FILE SKIPPED)
 
+// filepath: src\assets\hyperion.svg
+(BINARY FILE SKIPPED)
+
 // filepath: src\assets\index.js
 import gmetis from './lazaitrader.png' // This is your new logo
-import airbnb from "./airbnb.png";
 import bill from "./bill.png";
 import binance from "./binance.png";
 import card from "./card.png";
@@ -556,7 +561,6 @@ export {
   hyperion,
   telegram,
   gmetis,
-  airbnb,
   bill,
   binance,
   card,

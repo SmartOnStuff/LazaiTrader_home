@@ -2,7 +2,6 @@ import React from 'react';
 import { 
   GetStarted, 
   Features, 
-  CTA,
   HyperHack,
   Footer, 
   Hero, 
@@ -29,10 +28,9 @@ const App = () => {
       <div className={`bg-primary ${styles.paddingX} ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
           <Stats/>
-          <Features/> {/* Single, cleaned up features section */}
+          <Features/>
           <HyperHack/>
           <GetStarted/>
-          <CTA/>
           <Footer/>     
         </div>
       </div>
