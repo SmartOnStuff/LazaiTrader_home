@@ -40,7 +40,7 @@ const Hero = () => {
           </a>
           <button
             onClick={handleLearnMore}
-            className="py-4 px-6 font-medium text-lg text-cyan-400 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300 text-center"
+            className="py-4 px-6 font-medium text-lg text-cyan-400 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-gray-900 transition-all duration-300 text-center hidden sm:inline-block"
           >
             Learn More
           </button>
