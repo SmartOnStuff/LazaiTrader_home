@@ -21,8 +21,8 @@ const Footer = () => {
     {
       title: "Partners",
       links: [
-        { name: "HyperHack", link: "https://hyperhack.io" },
-        { name: "Hyperion Network", link: "https://hyperion.io" },
+        { name: "HyperHack", link: "https://https://hyperion.metis.io/#HyperHack-Hackathon" },
+        { name: "Hyperion Network", link: "https://https://hyperion.metis.io/" },
         { name: "Metis", link: "https://metis.io" }
       ]
     }
@@ -96,7 +96,7 @@ const Footer = () => {
       
       <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t border-gray-700">
         <p className="font-normal text-center text-lg leading-7 text-white">
-          2024 LazaiTrader. All Rights Reserved.
+          2025 LazaiTrader. All Rights Reserved.
         </p>  
         <div className="flex flex-row md:mt-0 mt-6">
           {socialMedia.map((social, index) => (
