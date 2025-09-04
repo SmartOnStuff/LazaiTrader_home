@@ -2,19 +2,16 @@ import React from 'react';
 import { 
   GetStarted, 
   Features, 
-  HyperHack,
   Footer, 
   Hero, 
   Navbar, 
   Stats 
 } from './components';
-import CampaignPopup from './components/CampaignPopup';
 import styles from './style';
 
 const App = () => {
   return (
     <div className='bg-primary w-full overflow-hidden'>
-      <CampaignPopup />
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
         <div className={`${styles.boxWidth}`}>
           <Navbar/>
@@ -29,7 +26,6 @@ const App = () => {
         <div className={`${styles.boxWidth}`}>
           <Stats/>
           <Features/>
-          <HyperHack/>
           <GetStarted/>
           <Footer/>     
         </div>
