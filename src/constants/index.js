@@ -23,7 +23,7 @@ export const features = [
     id: "feature-1",
     icon: "star",
     title: "Strategy Vault",
-    content: "TEE-secured knowledge sharing system where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
+    content: "Non-custodial wallet management with secure knowledge sharing where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
   },
   {
     id: "feature-2", 
@@ -54,7 +54,7 @@ export const feedback = [
   },
   {
     id: "feedback-3",
-    content: "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the TEE security gives me complete peace of mind.",
+    content: "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the non-custodial wallet security gives me complete peace of mind.",
     name: "James Thompson",
     title: "Crypto Investor",
   },
@@ -91,6 +91,7 @@ export const footerLinks = [
   {
     title: "Support",
     links: [
+      { name: "Documentation", link: "https://docs.lazaitrader.com" },
       { name: "AI Support Bot", link: "https://t.me/LazaiTrader_alithbot" },
       { name: "Trading Bot", link: "https://t.me/LazaiTrader_bot" }
     ],

@@ -26,7 +26,7 @@ const Hero = () => {
           </h1>
         </div>
         <p className="font-normal text-gray-300 text-lg leading-8 max-w-md mt-5">
-          Revolutionary platform combining AI trading strategies, TEE-secured analytics, and professional trading tools, all accessible through simple Telegram conversations.
+          Revolutionary platform combining AI trading strategies with non-custodial wallet management and professional trading tools. Live on Metis Andromeda mainnet using Hercules.exchange infrastructure, all accessible through simple Telegram conversations.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 mt-8">

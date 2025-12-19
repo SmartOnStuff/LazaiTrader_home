@@ -14,6 +14,7 @@ const Footer = () => {
     {
       title: "Support",
       links: [
+        { name: "Documentation", link: "https://docs.lazaitrader.com" },
         { name: "AI Support Bot", link: "https://t.me/LazaiTrader_alithbot" },
         { name: "Trading Bot", link: "https://t.me/LazaiTrader_bot" }
       ]
@@ -62,7 +63,7 @@ const Footer = () => {
             <span className="font-bold text-3xl text-white">LazaiTrader</span>
           </div>
           <p className="font-normal text-gray-300 text-lg leading-8 mt-4 max-w-sm">
-            AI-Powered Trading Platform on Telegram with TEE Security and Multi-Agent Intelligence
+            AI-Powered Trading Platform on Telegram with Non-Custodial Wallet Management and Multi-Agent Intelligence
           </p>
         </div>
         

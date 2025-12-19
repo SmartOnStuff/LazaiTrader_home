@@ -23,7 +23,7 @@ const GetStarted = () => {
           Start Trading in Seconds
         </h2>
         <p className="font-normal text-gray-300 text-lg leading-8 max-w-md mt-5">
-          Experience the future of trading with LazaiTrader. No complex setups, no wallet management, no browser extensions. Simply start a conversation with our Telegram bot and begin trading with automated strategies.
+          Experience the future of trading with LazaiTrader. Non-custodial wallet management means you maintain full control of your funds. Live on Metis Andromeda mainnet with Hercules.exchange infrastructure. Simply start a conversation with our Telegram bot and begin trading with automated strategies.
         </p>
         
         <div className="mt-8 space-y-4">
@@ -55,10 +55,10 @@ const GetStarted = () => {
             <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
             <div>
               <h4 className="font-semibold text-white text-base mb-1">
-                TEE Security
+                Non-Custodial Security
               </h4>
               <p className="font-normal text-gray-300 text-sm leading-5">
-                All data processing happens in secure Trusted Execution Environments for maximum privacy.
+                You maintain full control of your wallet and funds. Trade securely on Metis Andromeda mainnet.
               </p>
             </div>
           </div>

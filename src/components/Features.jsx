@@ -25,7 +25,7 @@ const Features = () => {
       id: "feature-1",
       icon: <StarIcon />,
       title: "Strategy Vault",
-      content: "TEE-secured knowledge sharing system where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
+      content: "Non-custodial wallet management with secure knowledge sharing where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
     },
     {
       id: "feature-2", 
@@ -48,7 +48,7 @@ const Features = () => {
           Why Choose LazaiTrader
         </h2>
         <p className="font-normal text-gray-300 text-lg leading-8 max-w-2xl mx-auto">
-          Built on the same robust Alith framework infrastructure and a privacy-preserving Trusted Execution Environment (TEE), LazaiTrader adapts to market conditions while maintaining the user’s selected trading philosophy, effectively bringing institutional-grade trading strategies to retail users through a familiar messaging interface.
+          Built on robust Alith framework infrastructure with non-custodial wallet management, LazaiTrader is live on Metis Andromeda mainnet using Hercules.exchange for trade execution. Our platform adapts to market conditions while maintaining your selected trading philosophy, bringing institutional-grade strategies to retail users through a familiar messaging interface.
         </p>
       </div>
 
