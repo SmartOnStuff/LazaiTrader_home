@@ -23,7 +23,7 @@ export const features = [
     id: "feature-1",
     icon: "star",
     title: "Strategy Vault",
-    content: "Non-custodial wallet management with secure knowledge sharing where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
+    content: "Secure knowledge sharing where trading data is contributed anonymously to build collective intelligence and AI-powered recommendations."
   },
   {
     id: "feature-2", 
@@ -54,7 +54,7 @@ export const feedback = [
   },
   {
     id: "feedback-3",
-    content: "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and the non-custodial wallet security gives me complete peace of mind.",
+    content: "Finally, a trading platform that feels natural. Just tell it what you want to trade, check your charts, and relax knowing your funds stay in your control.",
     name: "James Thompson",
     title: "Crypto Investor",
   },
