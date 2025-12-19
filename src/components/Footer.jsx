@@ -63,7 +63,7 @@ const Footer = () => {
             <span className="font-bold text-3xl text-white">LazaiTrader</span>
           </div>
           <p className="font-normal text-gray-300 text-lg leading-8 mt-4 max-w-sm">
-            AI-Powered Trading Platform on Telegram with Non-Custodial Wallet Management and Multi-Agent Intelligence
+            AI-powered trading on Telegram. Your funds, your control.
           </p>
         </div>
         
