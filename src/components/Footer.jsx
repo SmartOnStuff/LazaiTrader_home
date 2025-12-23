@@ -14,7 +14,7 @@ const Footer = () => {
     {
       title: "Support",
       links: [
-        { name: "Documentation", link: "https://lazaitrader-1.gitbook.io/lazaitrader-docs/" },
+        { name: "Documentation", link: "https://docs.lazaitrader.com" },
         { name: "AI Support Bot", link: "https://t.me/LazaiTrader_alithbot" },
         { name: "Trading Bot", link: "https://t.me/LazaiTrader_bot" }
       ]
