@@ -8,12 +8,14 @@ export const navLinks = [
     title: "Features",
   },
   {
-    id: "hyperhack",
-    title: "Competition",
+    id: "documentation",
+    title: "Documentation",
+    link: "https://docs.lazaitrader.com",
   },
   {
     id: "get-started", // Updated to match the section id
     title: "Get Started",
+    link: "https://docs.lazaitrader.com/introduction/getting-started",
   },
 ];
 
