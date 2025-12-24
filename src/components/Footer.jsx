@@ -7,7 +7,7 @@ const Footer = () => {
       title: "Navigation",
       links: [
         { name: "Features", link: "#features" },
-        { name: "Competition", link: "#hyperhack" },
+        { name: "Documentation", link: "https://docs.lazaitrader.com" },
         { name: "Get Started", link: "#get-started" }
       ]
     },
